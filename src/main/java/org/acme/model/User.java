@@ -43,7 +43,6 @@ public class User extends PanacheEntity {
     
     //skapar en unik API-nyckel
     public User() {
-        this.apiKey = UUID.randomUUID().toString();
     }
     
     //Getters and Setters
@@ -69,8 +68,8 @@ public class User extends PanacheEntity {
         return apiKey;
     }
     
-    public User setApiKey(String apiKey) {
-        this.apiKey = apiKey;
+    public User setApiKey() {
+        this.apiKey = UUID.randomUUID().toString();
         return this;
     }
     
@@ -99,6 +98,7 @@ public class User extends PanacheEntity {
         User user = new User()
             .setUsername(username)
             .setPassword(BcryptUtil.bcryptHash(password))
+            .setApiKey()
             .setRole(role);
 
             user.persist();
