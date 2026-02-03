@@ -12,15 +12,12 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 
 
 /* ========================================================= */
 /* Den här klassen hanterar alla hero-relaterade operationer */
 /* ========================================================= */
 
-
-@Transactional(Transactional.TxType.SUPPORTS)
 @ApplicationScoped
 @Named
 public class HeroService {
@@ -37,7 +34,10 @@ public class HeroService {
     
         {
 
-            "race": "ELF"
+            "race": "ELF",
+            "name": "Legolas",
+            "heroClass": "Archer" <--- spelar ingen roll om det är lowercase eller ej. Hanteras i heroservice
+      
         }
     
     
