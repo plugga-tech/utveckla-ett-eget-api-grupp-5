@@ -19,7 +19,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.MediaType;
 
-@RolesAllowed({"user", "admin"}) // Denna klass kan användas av alla som har user eller admin behörighet
+
 @Path("/api/hero")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -33,6 +33,7 @@ public class HeroResource {
     
     @POST
     @Transactional
+    @RolesAllowed("user")
     public Response postHero(HeroDto heroDto){
 
         try {

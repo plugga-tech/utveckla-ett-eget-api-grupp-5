@@ -2,7 +2,6 @@ package org.acme.model;
 
 import java.util.UUID;
 
-import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.security.jpa.Password;
 import io.quarkus.security.jpa.Roles;
@@ -10,9 +9,6 @@ import io.quarkus.security.jpa.UserDefinition;
 import io.quarkus.security.jpa.Username;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 // Om basic auth med basic authentication med jakarta persistence 
@@ -23,10 +19,6 @@ import jakarta.persistence.Table;
 @Table(name = "users")
 @UserDefinition
 public class User extends PanacheEntity {
-/* 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; */
 
     @Column(nullable = false, unique = true)
     @Username
@@ -41,20 +33,7 @@ public class User extends PanacheEntity {
     @Column(name = "api_key", nullable = false, unique = true)
     private String apiKey;    
     
-    //skapar en unik API-nyckel
-    public User() {
-    }
-    
-    //Getters and Setters
-/*     public Long getId() {
-        return id;
-    }
-    
-    public User setId(Long id) {
-        this.id = id;
-        return this;
-    }
-     */
+
     public String getUsername() {
         return username;
     }
@@ -88,21 +67,9 @@ public class User extends PanacheEntity {
         return role;
     }
 
-    public User setRole(String role) {
-        this.role = role;
+    public User setRole() {
+        this.role = "user";
         return this;
     }
     
-    public static void add(String username, String password, String role) {
-        
-        User user = new User()
-            .setUsername(username)
-            .setPassword(BcryptUtil.bcryptHash(password))
-            .setApiKey()
-            .setRole(role);
-
-            user.persist();
-
-    }
-
 }

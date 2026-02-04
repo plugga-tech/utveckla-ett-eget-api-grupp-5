@@ -108,7 +108,7 @@ public class HeroService {
 
     public List<HeroResponseDto> getAllHeroes() {
 
-        List<Hero> heroes = em.createQuery("SELECT h from Hero h", Hero.class).getResultList();
+        List<Hero> heroes = em.createQuery("SELECT h FROM Hero h", Hero.class).getResultList();
         List<HeroResponseDto> heroResponseDtos = new ArrayList<>();
 
         for (Hero hero : heroes){

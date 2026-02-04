@@ -9,3 +9,7 @@ insert into hero (name, heroClass, race, focusedFire, steadyFrame, strongArms, j
 insert into hero (name, heroClass, race, focusedFire, steadyFrame, strongArms, jackOfAllTrades) values ('Sammy' , 'Ranger'    , 'ELF'   , true  , false , false , false);
 insert into hero (name, heroClass, race, focusedFire, steadyFrame, strongArms, jackOfAllTrades) values ('Gronk' , 'Vanguard'  , 'DWARF' , false , true  , false , false);
 insert into hero (name, heroClass, race, focusedFire, steadyFrame, strongArms, jackOfAllTrades) values ('Nark'  , 'Barbarian' , 'ORC'   , false , false , true  , false);
+
+
+insert into users (id, username, password, api_key, role) values (111, 'asdf', 'asdf', '123456', 'user');
+insert into users (id, username, password, api_key, role) values (222, 'user', 'user', '123456123', 'user');

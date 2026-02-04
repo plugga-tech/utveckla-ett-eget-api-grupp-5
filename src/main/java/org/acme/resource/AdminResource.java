@@ -1,5 +1,6 @@
 package org.acme.resource;
 
+import io.quarkus.security.Authenticated;
 import io.quarkus.security.User;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -11,8 +12,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 
-@RolesAllowed("admin") // Enbart admins kan komma åt endpoints i denna klassen
-@Path("/api/admin")
+
+@Authenticated
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AdminResource {
