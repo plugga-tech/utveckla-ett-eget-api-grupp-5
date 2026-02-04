@@ -1,6 +1,5 @@
 package org.acme.service;
 
-
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -46,18 +45,13 @@ public class UserService {
     // Kontrollerar om ett användarnamn redan är registrerat i databasen.
     // Returnerar true om användaren finns, annars false.
     private boolean userExists(String username) {
-        
-        // Använder 'var' här för att linter ska sluta klaga på att em kan vara null
-        // Jag lyckas inte hitta någon bra lösning för att göra en nullpointerexception som lintern är nöjd med
-        // Så jag låter typen vara obestämd med var, trots att jag vet att det är en List<User>
-        var users = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+
+        return !em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
                 .setParameter("username", username)
-                .getResultList();
-        
-                return !users.isEmpty();
+                .getResultList()
+                .isEmpty();
+
     }
-
-
 
     // Hämtar specifik användares API key för att returnera till frontend
     public String fetchApiKey(String username, String password) {
@@ -74,19 +68,15 @@ public class UserService {
 
     private User returnUser(String username) {
         try {
-            User user = em.createQuery("SELECT u FROM User u Where u.username = :username", User.class)
+            return em
+                    .createQuery("SELECT u FROM User u Where u.username = :username", User.class)
                     .setParameter("username", username)
                     .getSingleResult();
-
-            return user;
 
         } catch (NoResultException e) {
             throw new IllegalArgumentException("User not found: " + username);
         }
-
     }
-
-
 
     private boolean verifyUsername(String username) {
         if (username.length() < 4 || username.length() > 30) {
@@ -96,22 +86,8 @@ public class UserService {
     }
 
     private boolean verifyPassword(String password) {
-
         Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z]).{4,50}$");
-
         return passwordPattern.matcher(password).matches();
 
     }
-
-    public void loginUser(UserDto userDto) {
-
-        User user = returnUser(userDto.getUsername());
-
-        if (!userDto.getUsername().equals(user.getUsername()) ||
-                !BcryptUtil.matches(userDto.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException();
-        }
-
-    }
-
 }
