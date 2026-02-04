@@ -79,10 +79,7 @@ public class UserService {
     }
 
     private boolean verifyUsername(String username) {
-        if (username.length() < 4 || username.length() > 30) {
-            return false;
-        }
-        return true;
+        return username != null && username.length() >= 4 && username.length() <= 30;
     }
 
     private boolean verifyPassword(String password) {
