@@ -57,19 +57,20 @@ public class UserService {
                 return !users.isEmpty();
     }
 
+
+
     // Hämtar specifik användares API key för att returnera till frontend
-    public String fetchApiKey(String username) {
+    public String fetchApiKey(String username, String password) {
 
-        try {
-            User user = returnUser(username);
-            return user.getApiKey();
+        User user = returnUser(username);
 
-        } catch (NoResultException e) {
-            throw new IllegalArgumentException("User not found: " + username);
+        if (!BcryptUtil.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException("Wrong password");
         }
 
-    }
+        return user.getApiKey();
 
+    }
 
     private User returnUser(String username) {
         try {

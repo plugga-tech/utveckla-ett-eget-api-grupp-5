@@ -1,34 +1,20 @@
 package org.acme.model;
 
-import java.util.UUID;
-
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import io.quarkus.security.jpa.Password;
-import io.quarkus.security.jpa.Roles;
-import io.quarkus.security.jpa.UserDefinition;
-import io.quarkus.security.jpa.Username;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-// Om basic auth med basic authentication med jakarta persistence 
-// https://quarkus.io/guides/security-getting-started-tutorial
-
-
 @Entity
 @Table(name = "users")
-@UserDefinition
 public class User extends PanacheEntity {
 
     @Column(nullable = false, unique = true)
-    @Username
     private String username;
 
-    @Password
-    public String password;
+    private String password;
     
-    @Roles
-    public String role;
+    private String role;
 
     @Column(name = "api_key", nullable = false, unique = true)
     private String apiKey;    
@@ -48,7 +34,7 @@ public class User extends PanacheEntity {
     }
     
     public User setApiKey(String apiKey) {
-        this.apiKey = apiKey.toString();
+        this.apiKey = apiKey;
         return this;
     }
     

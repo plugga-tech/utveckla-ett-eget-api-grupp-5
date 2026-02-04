@@ -7,7 +7,6 @@ import org.acme.model.HeroDto;
 import org.acme.model.HeroResponseDto;
 import org.acme.service.HeroService;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -33,7 +32,6 @@ public class HeroResource {
     
     @POST
     @Transactional
-    @RolesAllowed("user")
     public Response postHero(HeroDto heroDto){
 
         try {
