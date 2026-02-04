@@ -14,8 +14,10 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.SecurityContext;
 
 @Path("/api/users")
 public class UserResource {
@@ -23,14 +25,17 @@ public class UserResource {
     @Inject
     UserService userService;
 
+    @Inject
+    SecurityContext securityContext;
+
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @RolesAllowed("user")
     @Path("/me")
-    public Response showApiKey(UserDto userDto){
+    public Response showApiKey(@Context SecurityContext securityContext){ // Används för att accessa den aktuellt inloggade principalen
 
-        String apiKey = userService.fetchApiKey(userDto);
+        String apiKey = userService.fetchApiKey(securityContext.getUserPrincipal().getName());
 
         return Response.ok(apiKey).build();
 
@@ -45,6 +50,8 @@ public class UserResource {
         "username": "namhär",
         "password": "passwordhär"
     }
+
+    PW måste 
     */
     @POST
     @Transactional
@@ -55,13 +62,13 @@ public class UserResource {
 
         try {
             userService.createUser(userDto);
+            return Response.ok("User was successfully created. You can now log in to see your API key.").build();
+
         } catch (PasswordException e) {
-            return Response.status(400, e.getMessage()).build();
+            return Response.status(400).entity(e.getMessage()).build(); //returnerar felmeddelande till registreringen
         } catch (IllegalArgumentException e) {
-            return Response.status(400, e.getMessage()).build();
+            return Response.status(400).entity(e.getMessage()).build(); // se ovan
         }
-        
-        return Response.ok("User created. Log in to see to see your API key.").build();
 
     }
 
@@ -77,7 +84,7 @@ public class UserResource {
         try {
             userService.loginUser(userDto);
         } catch ( IllegalArgumentException e ) {
-            return Response.status(400, "Wrong username or password").build();
+            return Response.status(400).entity(e.getMessage()).build();
         }
        
         return Response.ok(userDto).build();

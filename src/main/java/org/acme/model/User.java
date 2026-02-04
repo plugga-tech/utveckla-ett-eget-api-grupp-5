@@ -47,8 +47,8 @@ public class User extends PanacheEntity {
         return apiKey;
     }
     
-    public User setApiKey() {
-        this.apiKey = UUID.randomUUID().toString();
+    public User setApiKey(String apiKey) {
+        this.apiKey = apiKey.toString();
         return this;
     }
     
@@ -67,8 +67,8 @@ public class User extends PanacheEntity {
         return role;
     }
 
-    public User setRole() {
-        this.role = "user";
+    public User setRole(String role) {
+        this.role = role;
         return this;
     }
     
