@@ -32,7 +32,8 @@ public class HeroResource {
     
     @POST
     @Transactional
-    public Response postHero(HeroDto heroDto){
+    @Path("/new-hero")
+    public Response newHero(HeroDto heroDto){
 
         try {
             
@@ -53,7 +54,7 @@ public class HeroResource {
     }
 
     @GET
-    @Path("/all")
+    @Path("/get-all-heroes")
     public List<HeroResponseDto> getAllHeroes(){
 
         return heroService.getAllHeroes();

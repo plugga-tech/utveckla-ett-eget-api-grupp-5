@@ -6,12 +6,13 @@ import java.util.List;
 import org.acme.model.Hero;
 import org.acme.model.HeroDto;
 import org.acme.model.HeroResponseDto;
-import org.acme.model.Race;
+import org.acme.model.enums.Race;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 
 
 /* ========================================================= */

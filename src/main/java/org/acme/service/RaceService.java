@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.acme.model.Race;
+import org.acme.model.enums.Race;
 
 import jakarta.enterprise.context.ApplicationScoped;
 

@@ -1,4 +1,4 @@
-package org.acme.model;
+package org.acme.model.enums;
 
 import java.util.List;
 
@@ -7,10 +7,10 @@ import java.util.List;
 
 public enum Race {
 
-    HUMAN   ("Human"    , "Human are potent in just about anything, but they don't excel in any particular trait. Humans gain +2 to all stats, on level up."),
-    ORC     ("Orc"      , "Orcs are massive, intimidating, and strong. Orcs gain +1 to all stats, and +3 to Strength, on level up."),
-    ELF     ("Elf"      , "Elves are naturally agile and quick on their feet. Elves gain +1 to all stats, and +3 to Dexterity, on level up."),
-    DWARF   ("Dwarf"    , "Dwarves are short, but sturdy. They know how to take a punch. Dwarves gain +1 to all stats, and +3 to Constitution, on level up.");
+    HUMAN   ("Human"    , "Human are potent in just about anything, but they don't excel in any particular trait."),
+    ORC     ("Orc"      , "Orcs are massive, intimidating, and strong."),
+    ELF     ("Elf"      , "Elves are naturally agile and quick on their feet."),
+    DWARF   ("Dwarf"    , "Dwarves are short, but sturdy. They know how to take a punch.");
 
     // Skapar fält för rasens namn och beskrivning
     private final String race;

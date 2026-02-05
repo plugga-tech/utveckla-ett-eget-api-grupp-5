@@ -1,5 +1,7 @@
 package org.acme.model;
 
+import org.acme.model.enums.Race;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

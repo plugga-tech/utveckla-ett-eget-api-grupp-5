@@ -1,6 +1,6 @@
 package org.acme.model;
 
-
+import org.acme.model.enums.Race;
 
 // Response Data Transfer Object som skickas till frontend. 
 // Innehåller de fält som vi vill visa till klient. (TODO: fixa vilka fält som ska vara med)
