@@ -99,28 +99,28 @@ public class HeroResource {
     // Detta visar alla hjältar som har klassen MAGE
     // det går att byta ut MAGE mot någon av de andra klasserna: WARRIOR, ROGUE, PALADIN
     // för att visa hjältar av den klassen istället.
-    @GET
-    @Path("/get-hero-by-class/{heroClass}")
-    public List<HeroResponseDto> getHeroesByClass(@jakarta.ws.rs.PathParam("heroClass") String heroClass){
-
-        return heroService.getHeroesByClass(heroClass);
-
+    
+    
+    boolean deleted = heroService.deleteHero(id);
+    
+    //om hero inte finns, returnera 404
+    if(!deleted){
+        return Response
+        .status(Response.Status.NOT_FOUND)
+        .entity("Hero not found")
+        .build();
     }
+    
+    // Om hero har tagits bort, returnera 204 No Content
+    return Response.noContent().build();
+}
+@GET
+@Path("/get-hero-by-class/{heroClass}")
+public List<HeroResponseDto> getHeroesByClass(@jakarta.ws.rs.PathParam("heroClass") String heroClass){
 
+    return heroService.getHeroesByClass(heroClass);
 
-        boolean deleted = heroService.deleteHero(id);
-
-        //om hero inte finns, returnera 404
-        if(!deleted){
-            return Response
-                .status(Response.Status.NOT_FOUND)
-                .entity("Hero not found")
-                .build();
-        }
-
-        // Om hero har tagits bort, returnera 204 No Content
-        return Response.noContent().build();
-    }
+}
 }
 
 

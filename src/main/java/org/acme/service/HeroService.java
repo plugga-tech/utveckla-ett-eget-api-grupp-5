@@ -179,7 +179,7 @@ public class HeroService {
         em.remove(hero);
         return true;
     }
-}
+
      public List<HeroResponseDto> getHeroesByClass(String heroClass) {
         HeroClass heroClassEnum = HeroClass.fromString(heroClass);
         List<Hero> heroes = em.createQuery("SELECT h FROM Hero h WHERE h.heroClass = :heroClass", Hero.class)
