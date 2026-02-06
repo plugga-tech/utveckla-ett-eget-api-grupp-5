@@ -9,7 +9,7 @@ public enum HeroClass {
 
     PALADIN     ("Paladin" ,"A shining hero devoted to justice, healing friends and smiting evil while delivering speeches nobody asked for but everyone endures."),
     WARRIOR     ("Warrior","A fearless frontline brawler who believes every problem improves after repeated hitting, preferably with something large and expensive."),
-    ROGUE       ("Rouge","A stealthy opportunist specializing in surprise attacks and “borrowing” valuables, then generously leaving before awkward explanations begin."),
+    ROGUE       ("Rogue","A stealthy opportunist specializing in surprise attacks and “borrowing” valuables, then generously leaving before awkward explanations begin."),
     MAGE       ("Mage", "A scholar of dangerous magic who bends reality at will, insisting the explosion was intentional and absolutely part of the plan.");
 
     // Skapar fält för rasens namn och beskrivning
@@ -46,9 +46,9 @@ public enum HeroClass {
     // Den här metoden konverterar en sträng till motsvarande enum värde
     // Används för att validera inkommande ras från klient vid skapande av hero
     public static HeroClass fromString(String value) {   // in värde i form av sträng
-        for (HeroClass c : HeroClass.values()) {              // loopa igenom alla enum värden
-            if (c.heroClass.equalsIgnoreCase(value)) {   // om strängen matchar enum värdets namn
-                return c;                           // returneras motsvarande enum värde
+        for (HeroClass h : HeroClass.values()) {              // loopa igenom alla enum värden
+            if (h.heroClass.equalsIgnoreCase(value)) {   // om strängen matchar enum värdets namn
+                return h;                           // returneras motsvarande enum värde
             }
         }
         throw new IllegalArgumentException("Unknown attribute: " + value);

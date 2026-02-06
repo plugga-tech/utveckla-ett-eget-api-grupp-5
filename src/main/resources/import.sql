@@ -5,10 +5,10 @@
 -- insert into myentity (id, field) values(3, 'field-3');
 -- alter sequence myentity_seq restart with 4;
 
-insert into hero (name, heroClass, race, focusedFire, steadyFrame, strongArms, jackOfAllTrades) values ('Jayce' , 'Fighter'   , 'HUMAN' , false , false , false , true );
-insert into hero (name, heroClass, race, focusedFire, steadyFrame, strongArms, jackOfAllTrades) values ('Sammy' , 'Ranger'    , 'ELF'   , true  , false , false , false);
-insert into hero (name, heroClass, race, focusedFire, steadyFrame, strongArms, jackOfAllTrades) values ('Gronk' , 'Vanguard'  , 'DWARF' , false , true  , false , false);
-insert into hero (name, heroClass, race, focusedFire, steadyFrame, strongArms, jackOfAllTrades) values ('Nark'  , 'Barbarian' , 'ORC'   , false , false , true  , false);
+insert into hero (name, heroClass, race, focusedFire, steadyFrame, strongArms, jackOfAllTrades) values ('Jayce' , 'WARRIOR'   , 'HUMAN' , false , false , false , true );
+insert into hero (name, heroClass, race, focusedFire, steadyFrame, strongArms, jackOfAllTrades) values ('Sammy' , 'ROGUE'    , 'ELF'   , true  , false , false , false);
+insert into hero (name, heroClass, race, focusedFire, steadyFrame, strongArms, jackOfAllTrades) values ('Gronk' , 'PALADIN'  , 'DWARF' , false , true  , false , false);
+insert into hero (name, heroClass, race, focusedFire, steadyFrame, strongArms, jackOfAllTrades) values ('Nark'  , 'MAGE' , 'ORC'   , false , false , true  , false);
 
 
 -- Lägger till en enda test-user. Vi behöver inte testa lösenord och sådant längre, så det är irrelevant

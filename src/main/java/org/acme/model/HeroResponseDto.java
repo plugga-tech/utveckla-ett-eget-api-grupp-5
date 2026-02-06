@@ -1,5 +1,6 @@
 package org.acme.model;
 
+import org.acme.model.enums.HeroClass;
 import org.acme.model.enums.Race;
 
 // Response Data Transfer Object som skickas till frontend. 
@@ -9,7 +10,7 @@ public class HeroResponseDto {
 
     private int     id;
     private String  name;
-    private String  heroClass;
+    private HeroClass  heroClass;
     private Race    race;
     private boolean focusedFire;     // Elf
     private boolean steadyFrame;     // Dwarf
@@ -80,11 +81,11 @@ public class HeroResponseDto {
         return this;
     }
 
-    public String getHeroClass() {
+    public HeroClass getHeroClass() {
         return heroClass;
     }
 
-    public HeroResponseDto setHeroClass(String heroClass) {
+    public HeroResponseDto setHeroClass(HeroClass heroClass) {
         this.heroClass = heroClass;
         return this;
     }

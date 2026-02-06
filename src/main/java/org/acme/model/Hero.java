@@ -19,6 +19,7 @@ public class Hero {
     // utan den här försöker programmet lagra enumens värde som ett index (0,1,2,3) i databasen
     @Enumerated(EnumType.STRING)
     private Race race;
+    @Enumerated(EnumType.STRING)
     private HeroClass heroClass;
     
     private String name;

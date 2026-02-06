@@ -51,10 +51,11 @@ public class HeroService {
         // Därför 'enumifieras' rasen här innan den appliceras på övriga hero fält.
         Race enumifiedRace = normalizeRace(heroDto.getRace());
 
+        HeroClass heroClass = HeroClass.fromString(heroDto.getHeroClass());
         Hero hero = new Hero();
             hero
                 .setName            (heroDto.getName())                    
-                .setHeroClass       (HeroClass.fromString(heroDto.getHeroClass()))
+                .setHeroClass       (heroClass)
                 .setRace            (enumifiedRace)                
                 .setFocusedFire     (isElf   (enumifiedRace)) // Boolean som verifierar raser
                 .setSteadyFrame     (isDwarf (enumifiedRace)) // Är man alv har man focusedFire true
@@ -69,7 +70,7 @@ public class HeroService {
             heroResponseDto
                 .setId              (hero.getId())
                 .setName            (hero.getName())
-                .setHeroClass       (hero.getHeroClass() != null ? hero.getHeroClass().name() : null)
+                .setHeroClass       (hero.getHeroClass())
                 .setRace            (hero.getRace())                
                 .setFocusedFire     (hero.getFocusedFire())
                 .setSteadyFrame     (hero.getSteadyFrame())
@@ -116,7 +117,7 @@ public class HeroService {
             HeroResponseDto heroResponseDto = new HeroResponseDto()
                 .setId              (hero.getId())
                 .setName            (hero.getName())
-                .setHeroClass       (hero.getHeroClass() != null ? hero.getHeroClass().name() : null)
+                .setHeroClass       (hero.getHeroClass())
                 .setRace            (hero.getRace())                
                 .setFocusedFire     (hero.getFocusedFire())
                 .setSteadyFrame     (hero.getSteadyFrame())
@@ -156,7 +157,7 @@ public class HeroService {
         return new HeroResponseDto()
             .setId              (hero.getId())
             .setName            (hero.getName())
-            .setHeroClass       (hero.getHeroClass() != null ? hero.getHeroClass().name() : null)
+            .setHeroClass       (hero.getHeroClass())
             .setRace            (hero.getRace())
             .setFocusedFire     (hero.getFocusedFire())
             .setSteadyFrame     (hero.getSteadyFrame())
@@ -191,7 +192,7 @@ public class HeroService {
             HeroResponseDto heroResponseDto = new HeroResponseDto()
                 .setId              (hero.getId())
                 .setName            (hero.getName())
-                .setHeroClass       (hero.getHeroClass() != null ? hero.getHeroClass().name() : null)
+                .setHeroClass       (hero.getHeroClass())
                 .setRace(hero.getRace())
                 .setFocusedFire(hero.getFocusedFire())
                 .setSteadyFrame(hero.getSteadyFrame())
