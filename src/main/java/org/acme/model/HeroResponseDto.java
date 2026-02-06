@@ -2,6 +2,7 @@ package org.acme.model;
 
 import org.acme.model.enums.HeroClass;
 import org.acme.model.enums.Race;
+import org.acme.model.enums.Weapon;
 
 // Response Data Transfer Object som skickas till frontend. 
 // Innehåller de fält som vi vill visa till klient. (TODO: fixa vilka fält som ska vara med)
@@ -12,6 +13,7 @@ public class HeroResponseDto {
     private String  name;
     private HeroClass  heroClass;
     private Race    race;
+    private Weapon  weapon;
     private boolean focusedFire;     // Elf
     private boolean steadyFrame;     // Dwarf
     private boolean strongArms;      // Orc
@@ -89,5 +91,16 @@ public class HeroResponseDto {
         this.heroClass = heroClass;
         return this;
     }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public HeroResponseDto setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+        return this;
+    }
+
+    
 
 }

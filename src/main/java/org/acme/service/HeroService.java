@@ -8,11 +8,14 @@ import org.acme.model.HeroDto;
 import org.acme.model.HeroResponseDto;
 import org.acme.model.enums.Race;
 import org.acme.model.enums.HeroClass;
+import org.acme.model.enums.Weapon;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.ws.rs.NotFoundException;
 
 
 /* ========================================================= */
@@ -49,33 +52,25 @@ public class HeroService {
 
         // HeroDto objekt tar emot rasen som sträng, så de behöver konverteras till enum
         // Därför 'enumifieras' rasen här innan den appliceras på övriga hero fält.
-        Race enumifiedRace = normalizeRace(heroDto.getRace());
+        Race race = toRaceEnumFromString(heroDto.getRace());
+        Weapon weapon = toWeaponEnumFromString(heroDto.getWeapon());
 
         HeroClass heroClass = HeroClass.fromString(heroDto.getHeroClass());
         Hero hero = new Hero();
             hero
                 .setName            (heroDto.getName())                    
-                .setHeroClass       (heroClass)
-                .setRace            (enumifiedRace)                
-                .setFocusedFire     (isElf   (enumifiedRace)) // Boolean som verifierar raser
-                .setSteadyFrame     (isDwarf (enumifiedRace)) // Är man alv har man focusedFire true
-                .setStrongArms      (isOrc   (enumifiedRace)) // dwarf steadyFrame true, osv.
-                .setJackOfAllTrades (isHuman (enumifiedRace));
+                .setHeroClass       (heroDto.getHeroClass())
+                .setWeapon          (weapon)
+                .setRace            (race)                
+                .setFocusedFire     (isElf   (race)) // Boolean som verifierar raser
+                .setSteadyFrame     (isDwarf (race)) // Är man alv har man focusedFire true
+                .setStrongArms      (isOrc   (race)) // dwarf steadyFrame true, osv.
+                .setJackOfAllTrades (isHuman (race));
 
         em.persist(hero);
 
         // Skapa och returnera en HeroResponseDto baserad på den sparade heron
-        // TODO: Justera vilka fält som ska vara med i responsen
-        HeroResponseDto heroResponseDto = new HeroResponseDto();
-            heroResponseDto
-                .setId              (hero.getId())
-                .setName            (hero.getName())
-                .setHeroClass       (hero.getHeroClass())
-                .setRace            (hero.getRace())                
-                .setFocusedFire     (hero.getFocusedFire())
-                .setSteadyFrame     (hero.getSteadyFrame())
-                .setStrongArms      (hero.getStrongArms())
-                .setJackOfAllTrades (hero.getJackOfAllTrades());
+        HeroResponseDto heroResponseDto = createHeroResponseDto(hero);
 
         return heroResponseDto;
     }
@@ -83,7 +78,7 @@ public class HeroService {
 
     // Metod för att konvertera sträng till enum. HeroDto tar emot ras
     // i form av sträng, men vi vill ha den som enum i vår Hero entity.
-    private Race normalizeRace(String race) throws IllegalArgumentException {
+    private Race toRaceEnumFromString(String race) throws IllegalArgumentException {
 
         // Den här metoden använder den statiska fromString metoden i Race enum
         // Den hämtar rätt enum baserat på den inkommande strängen, och verifierar
@@ -95,9 +90,23 @@ public class HeroService {
             case ORC   : return Race.ORC;
             case ELF   : return Race.ELF;
             case DWARF : return Race.DWARF;
-            default      : throw new IllegalArgumentException("Unknown race: " + race);
+            default    : throw new IllegalArgumentException("Unknown race: " + race);
         }
     }
+
+    private Weapon toWeaponEnumFromString (String weapon){
+        // Samma princip som ovanför med ras-enum
+        Weapon weaponEnum = Weapon.fromString(weapon);
+        
+        switch(weaponEnum) {
+            case SWORD  : return Weapon.SWORD;
+            case MACE   : return Weapon.MACE;
+            case DAGGER : return Weapon.DAGGER;
+            case STAFF  : return Weapon.STAFF;
+            default     : throw new IllegalArgumentException("Unknown weapon: " + weapon);
+        }
+    }
+
 
     // Här sker verifiering av ras för att sätta rätt boolean värde
     // Vi använder enums för att undvika magic strings och underlätta maintenance
@@ -114,15 +123,7 @@ public class HeroService {
         List<HeroResponseDto> heroResponseDtos = new ArrayList<>();
 
         for (Hero hero : heroes){
-            HeroResponseDto heroResponseDto = new HeroResponseDto()
-                .setId              (hero.getId())
-                .setName            (hero.getName())
-                .setHeroClass       (hero.getHeroClass())
-                .setRace            (hero.getRace())                
-                .setFocusedFire     (hero.getFocusedFire())
-                .setSteadyFrame     (hero.getSteadyFrame())
-                .setStrongArms      (hero.getStrongArms())
-                .setJackOfAllTrades (hero.getJackOfAllTrades());
+            HeroResponseDto heroResponseDto = createHeroResponseDto(hero);
             heroResponseDtos.add(heroResponseDto);
         }
         return heroResponseDtos;
@@ -139,7 +140,8 @@ public class HeroService {
         }
 
         // Konvertera string till enum
-        Race enumifiedRace = normalizeRace(heroDto.getRace());
+        Race enumifiedRace = toRaceEnumFromString(heroDto.getRace());
+    
 
         //Uppdatera alla fält med nya värden
         hero.setName                (heroDto.getName())
@@ -178,6 +180,32 @@ public class HeroService {
         // Om hero finns, ta bort den från databasen
         em.remove(hero);
         return true;
+    public HeroResponseDto getHeroByName(String name) throws NoResultException {
+        
+        try {
+        Hero hero = em.createQuery("SELECT h FROM Hero h WHERE h.name = :name", Hero.class)
+                .setParameter("name", name)
+                .getSingleResult();
+        return createHeroResponseDto(hero);
+        } catch (NoResultException e) {
+            throw new IllegalArgumentException("No hero by that name could be found.");
+        }
+
+    }
+    
+    private HeroResponseDto createHeroResponseDto(Hero hero){
+
+        return new HeroResponseDto()
+            .setId              (hero.getId())
+            .setName            (hero.getName())
+            .setRace            (hero.getRace())
+            .setHeroClass       (hero.getHeroClass())
+            .setWeapon          (hero.getWeapon())
+            .setFocusedFire     (hero.getFocusedFire())
+            .setSteadyFrame     (hero.getSteadyFrame())
+            .setStrongArms      (hero.getStrongArms())
+            .setJackOfAllTrades (hero.getJackOfAllTrades());
+
     }
 
      public List<HeroResponseDto> getHeroesByClass(String heroClass) {

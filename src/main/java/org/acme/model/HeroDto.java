@@ -7,6 +7,7 @@ public class HeroDto {
     private String race;
     private String name;
     private String heroClass;
+    private String weapon;
 
     
 
@@ -36,5 +37,16 @@ public class HeroDto {
         this.heroClass = heroClass;
         return this;
     }
+
+    public String getWeapon() {
+        return weapon;
+    }
+
+    public HeroDto setWeapon(String weapon) {
+        this.weapon = weapon;
+        return this;
+    }
+
+    
 
 }

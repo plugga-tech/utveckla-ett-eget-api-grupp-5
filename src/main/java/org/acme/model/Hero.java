@@ -2,6 +2,8 @@ package org.acme.model;
 
 import org.acme.model.enums.Race;
 import org.acme.model.enums.HeroClass;
+import org.acme.model.enums.Weapon;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,6 +23,9 @@ public class Hero {
     private Race race;
     @Enumerated(EnumType.STRING)
     private HeroClass heroClass;
+    
+    @Enumerated(EnumType.STRING)
+    private Weapon weapon;
     
     private String name;
     private boolean focusedFire;     // Elf specifik
@@ -99,5 +104,16 @@ public class Hero {
         this.heroClass = heroClass;
         return this;
     }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public Hero setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+        return this;
+    }
+
+    
 
 }

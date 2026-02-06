@@ -64,8 +64,20 @@ public class HeroResource {
     @APIResponse(responseCode = "500", description = "Server error when creating hero, check that predefined race and class are valid")
     @Path("/get-all-heroes")
     public List<HeroResponseDto> getAllHeroes(){
-
         return heroService.getAllHeroes();
+    }
+
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("/get-hero-by-name")
+    public Response getHeroByName(String heroName){
+        
+        try {
+        HeroResponseDto responseDto =  heroService.getHeroByName(heroName);
+        return Response.ok(responseDto).build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(0).entity(e.getMessage()).build();
+        }
 
     }
 
