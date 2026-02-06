@@ -37,6 +37,9 @@ public class HeroResource {
     
     @POST
     @Transactional
+    @Operation(summary = "Creates a new hero", description = "Creates a new hero in the system, check Example Value for structure.")
+    @APIResponse(responseCode = "200",description = "Successfully created hero")
+    @APIResponse(responseCode = "500", description = "Server error when creating hero, check that predefined race and class are valid")
     @Path("/new-hero")
     public Response newHero(HeroDto heroDto){
 
@@ -59,9 +62,6 @@ public class HeroResource {
     }
 
     @GET
-    @Operation(summary = "Creates a new hero", description = "Creates a new hero in the system, check Example Value for structure.")
-    @APIResponse(responseCode = "200",description = "Successfully created hero")
-    @APIResponse(responseCode = "500", description = "Server error when creating hero, check that predefined race and class are valid")
     @Path("/get-all-heroes")
     public List<HeroResponseDto> getAllHeroes(){
         return heroService.getAllHeroes();
@@ -83,12 +83,12 @@ public class HeroResource {
 
     //Uppdaterar en hero baserat på id
     @PATCH
-    @Path("/{id}")
+    @Path("/update-hero")
     @Transactional
-    public Response updateHero(@PathParam("id") int id, HeroDto heroDto){
+    public Response updateHero(HeroDto heroDto){
 
         //Anropa service för att uppdatera hero
-        HeroResponseDto hero = heroService.updateHero(id, heroDto);
+        HeroResponseDto hero = heroService.updateHero(heroDto);
 
         // Om hero inte finns, returnera 404
         if (hero == null){
@@ -107,11 +107,6 @@ public class HeroResource {
     @Path("/{id}")
     @Transactional
     public Response deleteHero(@PathParam("id") int id){
-        // Exempel: /api/hero/get-hero-by-class/MAGE
-    // Detta visar alla hjältar som har klassen MAGE
-    // det går att byta ut MAGE mot någon av de andra klasserna: WARRIOR, ROGUE, PALADIN
-    // för att visa hjältar av den klassen istället.
-    
     
     boolean deleted = heroService.deleteHero(id);
     
@@ -126,9 +121,15 @@ public class HeroResource {
     // Om hero har tagits bort, returnera 204 No Content
     return Response.noContent().build();
 }
+        
+    // Exempel: /api/hero/get-hero-by-class/MAGE
+    // Detta visar alla hjältar som har klassen MAGE
+    // det går att byta ut MAGE mot någon av de andra klasserna: WARRIOR, ROGUE, PALADIN
+    // för att visa hjältar av den klassen istället.
+    
 @GET
 @Path("/get-hero-by-class/{heroClass}")
-public List<HeroResponseDto> getHeroesByClass(@jakarta.ws.rs.PathParam("heroClass") String heroClass){
+public List<HeroResponseDto> getHeroesByClass(@PathParam("heroClass") String heroClass){
 
     return heroService.getHeroesByClass(heroClass);
 

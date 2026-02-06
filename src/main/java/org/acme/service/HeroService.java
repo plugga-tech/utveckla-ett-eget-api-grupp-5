@@ -54,14 +54,14 @@ public class HeroService {
         // konverteras till enum
         // Därför 'enumifieras' de här innan den appliceras på övriga hero fält.
 
-        Weapon weapon = (Weapon.fromString(heroDto.getWeapon()));
-        Race race = (Race.fromString(heroDto.getRace()));
-
+        Weapon weapon       = Weapon.fromString(heroDto.getWeapon());
+        Race race           = Race.fromString(heroDto.getRace());
         HeroClass heroClass = HeroClass.fromString(heroDto.getHeroClass());
+
         Hero hero = new Hero();
         hero
                 .setName(heroDto.getName())
-                .setHeroClass(heroDto.getHeroClass())
+                .setHeroClass(heroClass)
                 .setWeapon(weapon)
                 .setRace(race)
                 .setFocusedFire(isElf(race)) // Boolean som verifierar raser
@@ -72,9 +72,8 @@ public class HeroService {
         em.persist(hero);
 
         // Skapa och returnera en HeroResponseDto baserad på den sparade heron
-        HeroResponseDto heroResponseDto = createHeroResponseDto(hero);
 
-        return heroResponseDto;
+        return createHeroResponseDto(hero);
 
     }
 
@@ -109,51 +108,50 @@ public class HeroService {
     }
 
     // Uppdaterar en hero baserat på id
-    public HeroResponseDto updateHero(int id, HeroDto heroDto) {
+    public HeroResponseDto updateHero(HeroDto heroDto) {
 
         // hämtar hero från databasen med id
-        Hero hero = em.find(Hero.class, id);
+        try {
 
-        // Om Hero inte finns, returnerar null
-        if (hero == null) {
-            return null;
+            Hero hero = em.createQuery("SELECT h FROM Hero h WHERE h.name = :name", Hero.class)
+                    .setParameter("name", heroDto.getName())
+                    .getSingleResult();
+
+            // Konvertera string till enum
+            Race enumifiedRace = Race.fromString(heroDto.getRace());
+            Weapon weapon = Weapon.fromString(heroDto.getWeapon());
+            HeroClass heroClass = HeroClass.fromString(heroDto.getHeroClass());
+
+            //Uppdatera alla fält med nya värden
+            hero.setName                (heroDto.getName())
+                .setHeroClass           (heroClass)
+                .setRace                (enumifiedRace)
+                .setWeapon              (weapon)
+                .setFocusedFire         (isElf(enumifiedRace))
+                .setSteadyFrame         (isDwarf(enumifiedRace))
+                .setStrongArms          (isOrc(enumifiedRace))
+                .setJackOfAllTrades     (isHuman(enumifiedRace));
+    
+            // sparar ändringar i databasen
+            em.merge(hero);
+
+            // Returnera den uppdaterade hjälten som en DTO
+            return createHeroResponseDto(hero);
+
+        } catch(NotFoundException e) {
+
+            throw new NotFoundException("No hero with that ID could be found.");
         }
-
-        // Konvertera string till enum
-        Race enumifiedRace = Race.fromString(heroDto.getRace());
-
-        //Uppdatera alla fält med nya värden
-        hero.setName                (heroDto.getName())
-            .setHeroClass           (HeroClass.fromString(heroDto.getHeroClass()))
-            .setRace                (enumifiedRace)
-            .setFocusedFire         (isElf(enumifiedRace))
-            .setSteadyFrame         (isDwarf(enumifiedRace))
-            .setStrongArms          (isOrc(enumifiedRace))
-            .setJackOfAllTrades     (isHuman(enumifiedRace));
-
-        // sparar ändringar i databasen
-        em.merge(hero);
-
-        // Returnera den uppdaterade hjälten som en DTO
-        return createHeroResponseDto(hero)
-                .setId(hero.getId())
-                .setName(hero.getName())
-                .setHeroClass(hero.getHeroClass())
-                .setRace(hero.getRace())
-                .setFocusedFire(hero.getFocusedFire())
-                .setSteadyFrame(hero.getSteadyFrame())
-                .setStrongArms(hero.getStrongArms())
-                .setJackOfAllTrades(hero.getJackOfAllTrades());
     }
 
     // Raderar en hero baserat på id
-    public boolean deleteHero(int id){
+    public boolean deleteHero(int id) {
 
         Hero hero = em.find(Hero.class, id);
 
         // Om hero inte finns, returnera false
-        if (hero == null){
-            return false; 
+        if (hero == null) {
+            return false;
         }
 
         // Om hero finns, ta bort den från databasen
@@ -174,6 +172,24 @@ public class HeroService {
 
     }
 
+    public List<HeroResponseDto> getHeroesByClass(String heroClass) {
+        HeroClass heroClassEnum = HeroClass.fromString(heroClass);
+        List<Hero> heroes = em.createQuery("SELECT h FROM Hero h WHERE h.heroClass = :heroClass", Hero.class)
+                .setParameter("heroClass", heroClassEnum)
+                .getResultList();
+
+        List<HeroResponseDto> heroResponseDtos = new ArrayList<>();
+
+        for (Hero hero : heroes) {
+            HeroResponseDto heroResponseDto = createHeroResponseDto(hero);
+            heroResponseDtos.add(heroResponseDto);
+
+        }
+        return heroResponseDtos;
+    }
+
+
+    // Helper klass för att skapa en responseDto utirån ett hero objekt.
     private HeroResponseDto createHeroResponseDto(Hero hero) {
 
         return new HeroResponseDto()
@@ -189,30 +205,7 @@ public class HeroService {
 
     }
 
-     public List<HeroResponseDto> getHeroesByClass(String heroClass) {
-        HeroClass heroClassEnum = HeroClass.fromString(heroClass);
-        List<Hero> heroes = em.createQuery("SELECT h FROM Hero h WHERE h.heroClass = :heroClass", Hero.class)
-                                .setParameter("heroClass", heroClassEnum)
-                                .getResultList();
 
-        List<HeroResponseDto> heroResponseDtos = new ArrayList<>();
-
-        for (Hero hero : heroes){
-            HeroResponseDto heroResponseDto = new HeroResponseDto()
-                .setId              (hero.getId())
-                .setName            (hero.getName())
-                .setHeroClass       (hero.getHeroClass())
-                .setRace(hero.getRace())
-                .setFocusedFire(hero.getFocusedFire())
-                .setSteadyFrame(hero.getSteadyFrame())
-                .setStrongArms(hero.getStrongArms())
-                .setJackOfAllTrades(hero.getJackOfAllTrades());
-            heroResponseDtos.add(heroResponseDto);
-
-
-}
-        return heroResponseDtos;
-    }
 }
 
         

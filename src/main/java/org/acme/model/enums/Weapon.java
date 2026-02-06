@@ -4,10 +4,10 @@ import java.util.List;
 
 public enum Weapon {
 
-    SWORD ("Sword", "Shines in the sun, sings in battle, and solves most problems with a swing."),
-    MACE ("Mace", "Because sometimes subtlety is overrated."),
-    DAGGER ("Dagger", "Fits in your boot, your belt, and your enemy's back"),
-    STAFF ("Staff", "Not just for wizards. Also good for pointing at things you'd rather not touch.");
+    SWORD   ("Sword",   "Shines in the sun, sings in battle, and solves most problems with a swing."),
+    MACE    ("Mace",    "Because sometimes subtlety is overrated."),
+    DAGGER  ("Dagger",  "Fits in your boot, your belt, and your enemy's back"),
+    STAFF   ("Staff",   "Not just for wizards. Also good for pointing at things you'd rather not touch.");
 
     private final String type;
     private final String flavour;
