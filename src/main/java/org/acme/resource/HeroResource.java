@@ -3,6 +3,7 @@ package org.acme.resource;
 
 import java.util.List;
 
+import org.acme.SwaggerMessages.SwaggerDocs;
 import org.acme.model.HeroDto;
 import org.acme.model.HeroResponseDto;
 import org.acme.service.HeroService;
@@ -38,9 +39,8 @@ public class HeroResource {
     @POST
     @Transactional
     @Operation(summary = "Creates a new hero", description = "Creates a new hero in the system, check Example Value for structure.")
-    @APIResponse(responseCode = "200",description = "Successfully created hero")
-    @APIResponse(responseCode = "500", description = "Server error when creating hero, check that predefined race and class are valid")
-    @APIResponse(responseCode = "400", description = "Invalid hero data")
+   @APIResponse(
+    responseCode = "200", description = SwaggerDocs.CREATE_NEW_HERO_STRING)
     @Path("/new-hero")
     public Response newHero(HeroDto heroDto){
 
@@ -95,6 +95,10 @@ public class HeroResource {
     }
 
     @GET
+    @APIResponse(
+    responseCode = "JAVASCRIPT EXAMPLE",
+    description = SwaggerDocs.HERO_FETCH_ALL_HEROES_JAVASCRIPT_STRING
+)
     @Path("/get-all-heroes")
     public List<HeroResponseDto> getAllHeroes(){
         return heroService.getAllHeroes();
@@ -102,6 +106,9 @@ public class HeroResource {
 
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
+    @APIResponse(
+    responseCode = "JAVASCRIPT EXAMPLE",
+    description = SwaggerDocs.HERO_FETCH_HERO_BY_NAME_JAVASCRIPT_STRING)
     @Path("/get-hero-by-name")
     public Response getHeroByName(String heroName){
 
@@ -164,6 +171,10 @@ public class HeroResource {
 
     //Raderar en hero baserat på id
     @DELETE
+    @APIResponse(
+        responseCode = "JAVASCRIPT EXAMPLE",
+        description = SwaggerDocs.HERO_DELETE_HERO_JAVASCRIPT_STRING
+    )
     @Path("/{id}")
     @Transactional
     public Response deleteHero(@PathParam("id") int id){
