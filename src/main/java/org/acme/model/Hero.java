@@ -1,7 +1,7 @@
 package org.acme.model;
 
 import org.acme.model.enums.Race;
-
+import org.acme.model.enums.HeroClass;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -19,10 +19,9 @@ public class Hero {
     // utan den här försöker programmet lagra enumens värde som ett index (0,1,2,3) i databasen
     @Enumerated(EnumType.STRING)
     private Race race;
+    private HeroClass heroClass;
     
     private String name;
-    private String heroClass;
-
     private boolean focusedFire;     // Elf specifik
     private boolean steadyFrame;     // Dwarf specifik
     private boolean strongArms;      // Orc specifik
@@ -91,11 +90,11 @@ public class Hero {
         return this;
     }
 
-    public String getHeroClass() {
+    public HeroClass getHeroClass() {
         return heroClass;
     }
 
-    public Hero setHeroClass(String heroClass) {
+    public Hero setHeroClass(HeroClass heroClass) {
         this.heroClass = heroClass;
         return this;
     }

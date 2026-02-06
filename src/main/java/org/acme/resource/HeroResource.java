@@ -6,6 +6,8 @@ import java.util.List;
 import org.acme.model.HeroDto;
 import org.acme.model.HeroResponseDto;
 import org.acme.service.HeroService;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -57,6 +59,9 @@ public class HeroResource {
     }
 
     @GET
+    @Operation(summary = "Creates a new hero", description = "Creates a new hero in the system, check Example Value for structure.")
+    @APIResponse(responseCode = "200",description = "Successfully created hero")
+    @APIResponse(responseCode = "500", description = "Server error when creating hero, check that predefined race and class are valid")
     @Path("/get-all-heroes")
     public List<HeroResponseDto> getAllHeroes(){
 
@@ -90,6 +95,18 @@ public class HeroResource {
     @Path("/{id}")
     @Transactional
     public Response deleteHero(@PathParam("id") int id){
+        // Exempel: /api/hero/get-hero-by-class/MAGE
+    // Detta visar alla hjältar som har klassen MAGE
+    // det går att byta ut MAGE mot någon av de andra klasserna: WARRIOR, ROGUE, PALADIN
+    // för att visa hjältar av den klassen istället.
+    @GET
+    @Path("/get-hero-by-class/{heroClass}")
+    public List<HeroResponseDto> getHeroesByClass(@jakarta.ws.rs.PathParam("heroClass") String heroClass){
+
+        return heroService.getHeroesByClass(heroClass);
+
+    }
+
 
         boolean deleted = heroService.deleteHero(id);
 
@@ -105,3 +122,7 @@ public class HeroResource {
         return Response.noContent().build();
     }
 }
+
+
+
+

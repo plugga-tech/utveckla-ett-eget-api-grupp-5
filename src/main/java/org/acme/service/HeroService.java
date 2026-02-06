@@ -7,6 +7,7 @@ import org.acme.model.Hero;
 import org.acme.model.HeroDto;
 import org.acme.model.HeroResponseDto;
 import org.acme.model.enums.Race;
+import org.acme.model.enums.HeroClass;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -21,7 +22,7 @@ import jakarta.persistence.EntityManager;
 @ApplicationScoped
 @Named
 public class HeroService {
-
+    
     @Inject
     EntityManager em;
 
@@ -53,7 +54,7 @@ public class HeroService {
         Hero hero = new Hero();
             hero
                 .setName            (heroDto.getName())                    
-                .setHeroClass       (heroDto.getHeroClass())
+                .setHeroClass       (HeroClass.fromString(heroDto.getHeroClass()))
                 .setRace            (enumifiedRace)                
                 .setFocusedFire     (isElf   (enumifiedRace)) // Boolean som verifierar raser
                 .setSteadyFrame     (isDwarf (enumifiedRace)) // Är man alv har man focusedFire true
@@ -68,7 +69,7 @@ public class HeroService {
             heroResponseDto
                 .setId              (hero.getId())
                 .setName            (hero.getName())
-                .setHeroClass       (hero.getHeroClass())
+                .setHeroClass       (hero.getHeroClass() != null ? hero.getHeroClass().name() : null)
                 .setRace            (hero.getRace())                
                 .setFocusedFire     (hero.getFocusedFire())
                 .setSteadyFrame     (hero.getSteadyFrame())
@@ -115,7 +116,7 @@ public class HeroService {
             HeroResponseDto heroResponseDto = new HeroResponseDto()
                 .setId              (hero.getId())
                 .setName            (hero.getName())
-                .setHeroClass       (hero.getHeroClass())
+                .setHeroClass       (hero.getHeroClass() != null ? hero.getHeroClass().name() : null)
                 .setRace            (hero.getRace())                
                 .setFocusedFire     (hero.getFocusedFire())
                 .setSteadyFrame     (hero.getSteadyFrame())
@@ -141,7 +142,7 @@ public class HeroService {
 
         //Uppdatera alla fält med nya värden
         hero.setName                (heroDto.getName())
-            .setHeroClass           (heroDto.getHeroClass())
+            .setHeroClass           (HeroClass.fromString(heroDto.getHeroClass()))
             .setRace                (enumifiedRace)
             .setFocusedFire         (isElf(enumifiedRace))
             .setSteadyFrame         (isDwarf(enumifiedRace))
@@ -155,7 +156,7 @@ public class HeroService {
         return new HeroResponseDto()
             .setId              (hero.getId())
             .setName            (hero.getName())
-            .setHeroClass       (hero.getHeroClass())
+            .setHeroClass       (hero.getHeroClass() != null ? hero.getHeroClass().name() : null)
             .setRace            (hero.getRace())
             .setFocusedFire     (hero.getFocusedFire())
             .setSteadyFrame     (hero.getSteadyFrame())
@@ -178,3 +179,32 @@ public class HeroService {
         return true;
     }
 }
+     public List<HeroResponseDto> getHeroesByClass(String heroClass) {
+        HeroClass heroClassEnum = HeroClass.fromString(heroClass);
+        List<Hero> heroes = em.createQuery("SELECT h FROM Hero h WHERE h.heroClass = :heroClass", Hero.class)
+                                .setParameter("heroClass", heroClassEnum)
+                                .getResultList();
+
+        List<HeroResponseDto> heroResponseDtos = new ArrayList<>();
+
+        for (Hero hero : heroes){
+            HeroResponseDto heroResponseDto = new HeroResponseDto()
+                .setId              (hero.getId())
+                .setName            (hero.getName())
+                .setHeroClass       (hero.getHeroClass() != null ? hero.getHeroClass().name() : null)
+                .setRace(hero.getRace())
+                .setFocusedFire(hero.getFocusedFire())
+                .setSteadyFrame(hero.getSteadyFrame())
+                .setStrongArms(hero.getStrongArms())
+                .setJackOfAllTrades(hero.getJackOfAllTrades());
+            heroResponseDtos.add(heroResponseDto);
+
+
+}
+        return heroResponseDtos;
+    }
+}
+
+        
+
+    

@@ -1,8 +1,6 @@
 package org.acme.resource;
 
 import io.quarkus.security.Authenticated;
-import io.quarkus.security.User;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.ws.rs.Consumes;
