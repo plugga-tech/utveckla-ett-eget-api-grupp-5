@@ -135,7 +135,7 @@ public class HeroService {
         em.merge(hero);
 
         // Returnera den uppdaterade hjälten som en DTO
-        return new HeroResponseDto()
+        return createHeroResponseDto(hero)
                 .setId(hero.getId())
                 .setName(hero.getName())
                 .setHeroClass(hero.getHeroClass())
@@ -159,6 +159,8 @@ public class HeroService {
         // Om hero finns, ta bort den från databasen
         em.remove(hero);
         return true;
+    }
+
     public HeroResponseDto getHeroByName(String name) throws NoResultException {
 
         try {
