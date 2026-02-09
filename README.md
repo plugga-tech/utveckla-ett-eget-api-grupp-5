@@ -103,6 +103,9 @@ You can also test the API using **Postman**.
 3. Enter an endpoint (example: `GET http://localhost:8080/api/hero/get-all-heroes`)  
 4. Send the request and inspect the response  
 
+In the /docs folder there is a .json file that can be imported into postman to load all the needed tests so you don't need to set them up yourself.
+Checkout /docs/postman.md for details on how to do this.
+
 ---
 ## Common Responses
 
