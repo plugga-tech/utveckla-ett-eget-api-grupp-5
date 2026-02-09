@@ -251,7 +251,7 @@ public class SwaggerDocs {
                     "X-API-KEY": "123456"
                 }
             });
-            
+
             if (response.ok) {
                 const result = await response.json();
                 console.log(result);
@@ -316,8 +316,13 @@ public class SwaggerDocs {
                 }
             });
 
-            const result = await response.json();
-            console.log(result);
+            if (response.ok) {
+                const result = await response.json();
+                console.log(result);
+            } else {
+                const error = await response.text()
+                console.log(error)
+            }
         }
 
         ***
