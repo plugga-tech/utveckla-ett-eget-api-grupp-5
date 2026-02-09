@@ -13,12 +13,17 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 
+/**
+ * Alla användar-relaterade services
+ */
+
 @ApplicationScoped
 public class UserService {
 
     @Inject
     EntityManager em;
 
+    // Skapar en ny användare
     public void createUser(UserDto userDto) throws PasswordException, IllegalArgumentException {
 
         if (!verifyPassword(userDto.getPassword())) {
@@ -42,6 +47,7 @@ public class UserService {
     }
 
 
+    // Hämtar användare baserat på apiKey
     public User getUserByApiKey(String apiKey){
         return em.createQuery("SELECT u FROM User u WHERE u.apiKey = :apiKey", User.class)
         .setParameter("apiKey", apiKey)
@@ -73,6 +79,7 @@ public class UserService {
 
     }
 
+    // returnerar användare baserat på namn
     public User returnUser(String username) {
         try {
             return em
@@ -85,10 +92,13 @@ public class UserService {
         }
     }
 
+
+    // Verifierar att användarnamn följer definerad standard
     private boolean verifyUsername(String username) {
         return username != null && username.length() >= 4 && username.length() <= 30;
     }
 
+    // verifierar att lösenord följer definerad standard
     private boolean verifyPassword(String password) {
         Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z]).{4,50}$");
         return passwordPattern.matcher(password).matches();

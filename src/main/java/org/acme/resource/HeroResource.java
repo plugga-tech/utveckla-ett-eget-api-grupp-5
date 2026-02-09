@@ -26,6 +26,13 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.MediaType;
 
+
+/**
+ * Denna klassen hanterar alla endpoints relaterade till heroes.
+ * Samtliga endpoints i den här klassen har beskrivningar och JS exempel
+ * på hur de fungerar i klassen SwaggerDocs.java
+ */
+
 @Path("/api/hero")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -44,6 +51,11 @@ public class HeroResource {
     @Inject
     EntityManager em;
 
+    /**
+     * 
+     * Skapar ny hero. 
+     * 
+     */
     @POST
     @Transactional
     @Operation(summary = "Creates a new hero", description = "Creates a new hero in the system, check Example Value for structure.")
@@ -85,6 +97,9 @@ public class HeroResource {
 
     }
 
+    /**
+     * Listar en användares heroes
+     */
     @GET
     @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_GET_USER_HEROES_STRING)
     @Path("/get-user-heroes")
@@ -96,6 +111,9 @@ public class HeroResource {
         }
     }
 
+    /**
+     * Hämtar alla heroes från alla användare
+     */
     @GET
     @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_FETCH_ALL_HEROES_JAVASCRIPT_STRING)
     @PermitAll
@@ -109,6 +127,9 @@ public class HeroResource {
         }
     }
 
+    /**
+     * Hämtar en hero baserat på angivet namn
+     */
     @GET
     @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_FETCH_HERO_BY_NAME_JAVASCRIPT_STRING)
     @Path("/get-hero-by-name/{heroName}")
@@ -132,6 +153,9 @@ public class HeroResource {
         }
     }
 
+    /**
+     * Hämtar alla heroes av specificerad ras
+     */
     @GET
     @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_GET_BY_RACE_STRING)
     @Path("/get-heroes-by-race/{race}")
@@ -148,7 +172,9 @@ public class HeroResource {
         }
     }
 
-    // Uppdaterar en hero baserat på id
+    /**
+     * Uppdaterar hero baserat på id
+     */
     @PATCH
     @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_UPDATE_HERO_STRING)
     @Path("/update-hero")
@@ -190,6 +216,9 @@ public class HeroResource {
         }
     }
 
+    /**
+     * Hämtar alla heroes med specifikt vapen
+     */
     @GET
     @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_GET_BY_WEAPON_STRING)
     @Path("/get-hero-by-weapon/{weapon}")
@@ -204,6 +233,9 @@ public class HeroResource {
         }
     }
 
+    /**
+     * Hämtar hero baserat på id
+     */
     @GET
     @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_GET_BY_ID_STRING)
     @Path("/get-hero-by-id/{id}")

@@ -8,9 +8,19 @@ package org.acme.SwaggerMessages;
  * 
  * Beroende på hur ni vill använda endpoints kan vissa JS exempel behöva modifieras, men här finns en grund att utgå ifrån.
  * 
- * 
+ * OBS!!!!!!!!!
  * I samtliga exempel finns en hårdkodad API nyckel. När ni själva ska hantera nycklar rekommenderar vi att ni sparar dem i localstorage
  * vid inloggning/retrieval, och använder localstorages värde i headern.
+ * !!!!!!!!!!!
+ * 
+ * 
+ * För att få er första nyckel kan ni antingen använda er av postman, endpoint:
+ * http://www.localhost:8080/api/users/new-user/ passera in ett giltigt namn och lösenord
+ * Använd sedan http://www.localhost:8080/api/users/get-key/ med samma namn och lösenord
+ * 
+ * Alternativt öppnar ni filen create.html i live-server eller liknande och gör inloggning därifrån. När ni klickar get-key därifrån sparas er nyckel automatiskt i localstorage.
+ * Var medvetna om att localstorage enbart kommer gälla på den domän ni hämtar nyckeln ifrån. Om ni gör det från 127.0.0.1 så ligger den inte i localhost och vice versa.
+ * 
  * 
 */
 
@@ -185,6 +195,7 @@ public class SwaggerDocs {
 
 
 
+    // Hämta alla heroes som tillhör specifik ras
     public static final String HERO_GET_BY_RACE_STRING = 
     """
         Returns all heroes by race.
@@ -217,6 +228,7 @@ public class SwaggerDocs {
         Error Code: [ 404 ]       =         No heroes found for this race
     """;
 
+    // Uppdaterar en hero
     public static final String HERO_UPDATE_HERO_STRING =
     """
         Updates a hero.
@@ -261,6 +273,7 @@ public class SwaggerDocs {
         Error Code: [ 500 ]       =         Server error when updating hero
     """;
 
+    // Listar alla heroes med specifik vapentyp
     public static final String HERO_GET_BY_WEAPON_STRING = 
     """
         Returns all heroes by weapon.
@@ -293,6 +306,7 @@ public class SwaggerDocs {
         Error Code: [ 404 ]       =         No heroes found for this weapon
     """;
 
+    // Hämtar en hero baserat på id
     public static final String HERO_GET_BY_ID_STRING = 
     """
         Returns a hero by id.
@@ -325,6 +339,7 @@ public class SwaggerDocs {
         Error Code: [ 404 ]       =         Hero not found
     """;
 
+    // Hämtar en hero baserat på klass
     public static final String HERO_GET_BY_CLASS_STRING = 
     """
         Returns all heroes by class.

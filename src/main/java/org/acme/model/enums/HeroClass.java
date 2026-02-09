@@ -2,8 +2,13 @@ package org.acme.model.enums;
 
 import java.util.List;
 
-// Enum för olika raser.
-// Innehåller rasens namn för att kunna användas som display i frontend, samt en beskrivning av rasen.
+/**
+ * 
+ * Enum för olika klasser.
+ * Innehåller klassens namn för att kunna användas som display i frontend, samt en beskrivning av klassen.
+ * 
+ */
+
 
 @SuppressWarnings("null")
 public enum HeroClass {
@@ -13,7 +18,7 @@ public enum HeroClass {
     ROGUE       ("Rogue","A stealthy opportunist specializing in surprise attacks and “borrowing” valuables, then generously leaving before awkward explanations begin."),
     MAGE       ("Mage", "A scholar of dangerous magic who bends reality at will, insisting the explosion was intentional and absolutely part of the plan.");
 
-    // Skapar fält för rasens namn och beskrivning
+    // Skapar fält för klassens namn och beskrivning
     private final String heroClass;
     private final String flavour;
    
@@ -25,7 +30,7 @@ public enum HeroClass {
        
     }
 
-    // Getter för rasens namn och beskrivning
+    // Getter för klassens namn och beskrivning
     // Hämtas statiskt genom att skriva HeroClass.PALADIN.getHeroClass(), HeroClass.WARRIOR.getFlavour(), etc.
     // Eller om man vill hämta flavour text från en specifik klass blir det hero.getHeroClass().getFlavour()
     // Vill man printa namnet på klassen blir det hero.getHeroClass().getHeroClass() 

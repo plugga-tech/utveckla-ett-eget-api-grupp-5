@@ -2,6 +2,10 @@ package org.acme.model.enums;
 
 import java.util.List;
 
+/**
+ * Enum klass för vapen. Fungerar likadant som de andra.
+ */
+
 @SuppressWarnings("null")
 public enum Weapon {
 

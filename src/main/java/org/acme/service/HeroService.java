@@ -52,6 +52,7 @@ public class HeroService {
      * "race": "ELF",
      * "name": "Legolas",
      * "heroClass": "Archer" <--- spelar ingen roll om det är lowercase eller ej.
+     * "weapon": "dagger"
      * Hanteras i heroservice
      * 
      * }
@@ -81,8 +82,6 @@ public class HeroService {
         }
         
         Hero hero = new Hero();
-
-        
         hero
         .setName(heroDto.getName())      
         .setHeroClass(heroClass)
@@ -103,6 +102,7 @@ public class HeroService {
 
     }
 
+    // Helper för att kolla om en hero finns eller ej.
     private boolean heroExists(HeroDto heroDto) {
         List<Hero> heroes = getAllHeroes();
         for (Hero h : heroes) {
@@ -115,54 +115,39 @@ public class HeroService {
 
     // Här sker verifiering av ras för att sätta rätt boolean värde
     // Vi använder enums för att undvika magic strings och underlätta maintenance
-    private boolean isElf(Race race) {
-        return race == Race.ELF;
-    }
+    private boolean isElf   (Race race) {return race == Race.ELF;}
+    private boolean isDwarf (Race race) {return race == Race.DWARF;}
+    private boolean isOrc   (Race race) {return race == Race.ORC;}
+    private boolean isHuman (Race race) {return race == Race.HUMAN;}
 
-    private boolean isDwarf(Race race) {
-        return race == Race.DWARF;
-    }
-
-    private boolean isOrc(Race race) {
-        return race == Race.ORC;
-    }
-
-    private boolean isHuman(Race race) {
-        return race == Race.HUMAN;
-    }
-
+    // returnerar en lista på alla heroes
     public List<Hero> getAllHeroes(){
         return em.createQuery("SELECT h FROM Hero h", Hero.class).getResultList();
-        
     }
 
+    // returnerar en lista på alla heroes, konverterade till ResponseDto's
     public List<HeroResponseDto> getAllHeroesResponse() throws NoResultException {
         List<HeroResponseDto> allHeroesAsResponse = new ArrayList<>();
         for (Hero h : getAllHeroes()) {
             allHeroesAsResponse.add(createHeroResponseDto(h));
         }
-
         if (allHeroesAsResponse.isEmpty()) {
             throw new NoResultException("No heroes to list. :(");
         }
-
         return allHeroesAsResponse;
-
     }
 
+    // Hämtar en specifik användares heroes
     public List<HeroResponseDto> getHeroes() throws NoResultException {
 
         List<Hero> heroes = getAllHeroes();
-
         List<HeroResponseDto> heroResponseDtos = new ArrayList<>();
-
         for (Hero h : heroes) {
             if (h.getOwnerApiKey().equals(apiKeyHolder.getApiKey())) {
                 HeroResponseDto heroResponseDto = createHeroResponseDto(h);
                 heroResponseDtos.add(heroResponseDto);
             }
         }
-
         if (heroResponseDtos.isEmpty()) {
             throw new NoResultException("No heroes to list. :(");
         }
@@ -210,10 +195,12 @@ public class HeroService {
         }
     }
 
+    // Hämtar hero baserat på id
     public Hero getHeroById(int id) throws NotFoundException {
         return em.find(Hero.class, id);
     }
 
+    // Hämtar heroResponseDto baserat på id
     public HeroResponseDto getHeroResponseById(int id) throws NotFoundException{
         Hero hero = getHeroById(id);
         if (hero == null) {
@@ -222,6 +209,7 @@ public class HeroService {
         return createHeroResponseDto(hero);
     }
 
+    // hämtar en lista av heroResponseDto's baserat på vapen
     public List<HeroResponseDto> getHeroesByWeapon(String weapon) throws NotFoundException {
        
         Weapon weaponToEnum = Weapon.fromString(weapon);
@@ -264,6 +252,7 @@ public class HeroService {
         return true;
     }
 
+    // Hämtar hero baserat på namn
     public HeroResponseDto getHeroByName(String name) throws NoResultException, AccessDeniedException {
 
         try {
@@ -282,6 +271,7 @@ public class HeroService {
 
     }
 
+    // Hämtar alla heroes av specifik ras
     public List<HeroResponseDto> getHeroesByRace(String race) throws NotFoundException {
     
         Race raceEnum;
@@ -291,9 +281,6 @@ public class HeroService {
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("No such race exists");
         }
-        
-        
-    
 
         List<Hero> heroes = em.createQuery("SELECT h FROM Hero h WHERE h.race = :raceEnum", Hero.class)
                 .setParameter("raceEnum", raceEnum)
@@ -312,6 +299,7 @@ public class HeroService {
         return responseHeroes;
     }
 
+    // Hämtar alla heroes av specifik klass
     public List<HeroResponseDto> getHeroesByClass(String heroClass) throws NotFoundException {
         HeroClass heroClassEnum = HeroClass.fromString(heroClass);
         
@@ -349,8 +337,6 @@ public class HeroService {
                 .setJackOfAllTrades(hero.getJackOfAllTrades())
                 .setRaceImageUrl   (hero.getRace().getImageUrl());
     }
-
-
 }
 
         

@@ -38,6 +38,7 @@
                 if (response.ok) {
                     const key = await response.text();
                     document.getElementById("apiKeyResult").textContent = 'Your API Key: ' + key;
+                    localStorage.setItem("apiKey", key);
                 } else {
                     const error = await response.text();
                     document.getElementById("apiKeyResult").textContent = error;

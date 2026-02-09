@@ -59,6 +59,8 @@ public class ApiKeyFilter implements ContainerRequestFilter {
         }
 
         String apiKey = requestContext.getHeaderString("X-API-KEY"); // Hämtar API key från headern
+
+        // Lägger till apikey i en egen klass för att användas i nödvändiga klasser
         apiKeyHolder.setApiKey(apiKey);
 
         // Om ingen API key finns i headern, avbryt requesten med 401 Unauthorized

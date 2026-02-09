@@ -2,8 +2,14 @@ package org.acme.model.enums;
 
 import java.util.List;
 
-// Enum för olika raser.
-// Innehåller rasens namn för att kunna användas som display i frontend, samt en beskrivning av rasen.
+/**
+ * 
+ * 
+ * Enum för olika raser.
+ * Innehåller rasens namn för att kunna användas som display i frontend, samt en beskrivning av rasen.
+ * 
+ */
+
 
 @SuppressWarnings("null")
 public enum Race {
