@@ -277,7 +277,7 @@ public class HeroService {
 
             return createHeroResponseDto(hero);
         } catch (NoResultException e) {
-            throw new IllegalArgumentException("No hero by that name could be found.");
+            throw new NoResultException("No hero by that name could be found.");
         }
 
     }

@@ -9,6 +9,7 @@ import org.acme.service.HeroService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -97,6 +98,7 @@ public class HeroResource {
 
     @GET
     @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_FETCH_ALL_HEROES_JAVASCRIPT_STRING)
+    @PermitAll
     @Path("/get-all-heroes")
     public Response getAllHeroes() {
 
@@ -121,7 +123,7 @@ public class HeroResource {
             HeroResponseDto responseDto = heroService.getHeroByName(heroName);
             return res.respond(responseDto);
 
-        } catch (IllegalArgumentException e) {
+        } catch (NoResultException e) {
             return res.respond(e);
 
         } catch (AccessDeniedException e) {
@@ -221,7 +223,8 @@ public class HeroResource {
     // Raderar en hero baserat på id
     @DELETE
     @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_DELETE_HERO_JAVASCRIPT_STRING)
-    @Path("/{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/delete/{id}")
     @Transactional
     public Response deleteHero(@PathParam("id") int id) {
 
@@ -233,7 +236,7 @@ public class HeroResource {
                 return res.respond("Hero not found", NOT_FOUND);
             }
 
-            // Om hero har tagits bort, returnera 204 No Content
+            
             return res.respond("Hero has been removed.");
 
         } catch (AccessDeniedException e) {
