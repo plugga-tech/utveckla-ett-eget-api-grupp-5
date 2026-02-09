@@ -13,6 +13,7 @@ public class HeroResponseDto {
     private String      ownerName;
     private HeroClass   heroClass;
     private Race        race;
+    private String      raceImageUrl;
     private Weapon      weapon;
     private boolean     focusedFire;     // Elf
     private boolean     steadyFrame;     // Dwarf
@@ -110,8 +111,12 @@ public class HeroResponseDto {
         return this;
     }
 
-    
+    public String getRaceImageUrl() {
+        return raceImageUrl;
+    }
 
-    
-
+    public HeroResponseDto setRaceImageUrl(String raceImageUrl) {
+        this.raceImageUrl = raceImageUrl;
+        return this;
+    }
 }

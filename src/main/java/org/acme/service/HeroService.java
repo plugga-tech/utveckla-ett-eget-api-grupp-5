@@ -346,8 +346,8 @@ public class HeroService {
                 .setFocusedFire    (hero.getFocusedFire())
                 .setSteadyFrame    (hero.getSteadyFrame())
                 .setStrongArms     (hero.getStrongArms())
-                .setJackOfAllTrades(hero.getJackOfAllTrades());
-
+                .setJackOfAllTrades(hero.getJackOfAllTrades())
+                .setRaceImageUrl   (hero.getRace().getImageUrl());
     }
 
 

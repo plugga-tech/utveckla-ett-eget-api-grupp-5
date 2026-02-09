@@ -8,19 +8,28 @@ import java.util.List;
 @SuppressWarnings("null")
 public enum Race {
 
-    HUMAN   ("Human"    , "Human are potent in just about anything, but they don't excel in any particular trait."),
-    ORC     ("Orc"      , "Orcs are massive, intimidating, and strong."),
-    ELF     ("Elf"      , "Elves are naturally agile and quick on their feet."),
-    DWARF   ("Dwarf"    , "Dwarves are short, but sturdy. They know how to take a punch.");
+    HUMAN   ("Human"    , "Human are potent in just about anything, but they don't excel in any particular trait.",
+             "https://res.cloudinary.com/dz2lmzpd7/image/upload/q_auto,f_auto,w_500/v1770643202/Human_ksxozo.png"),
+
+    ORC     ("Orc"      , "Orcs are massive, intimidating, and strong.",
+            "https://res.cloudinary.com/dz2lmzpd7/image/upload/q_auto,f_auto,w_500/v1770643219/Orc_mvazmm.png"),
+
+    ELF     ("Elf"      , "Elves are naturally agile and quick on their feet.",
+            "https://res.cloudinary.com/dz2lmzpd7/image/upload/q_auto,f_auto,w_500/v1770643214/Elf_mbq3xl.png"),
+
+    DWARF   ("Dwarf"    , "Dwarves are short, but sturdy. They know how to take a punch.",
+            "https://res.cloudinary.com/dz2lmzpd7/image/upload/q_auto,f_auto,w_500/v1770643102/Dwarf_oypwgf.png");
 
     // Skapar fält för rasens namn och beskrivning
     private final String race;
     private final String flavour;
+    private final String imageUrl;
     
     // Konstruktor för enum
-    Race(String race, String flavour) {
+    Race(String race, String flavour, String imageUrl) {
         this.race = race;
         this.flavour = flavour;
+        this.imageUrl = imageUrl;
     }
 
     // Getter för rasens namn och beskrivning
@@ -35,6 +44,10 @@ public enum Race {
 
     public String getFlavour(){
         return flavour;
+    }
+
+    public String getImageUrl(){
+        return imageUrl;
     }
 
     // Statisk metod för att hämta en lista med alla raser
