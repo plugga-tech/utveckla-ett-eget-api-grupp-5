@@ -1,81 +1,167 @@
-# code-with-quarkus
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+# Create an API – Group 5
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## Project Description
 
-## Running the application in dev mode
+This project is a REST API built with **Quarkus**. The API allows clients to ***create, read, update, and delete heroes***.
 
-You can run your application in dev mode that enables live coding using:
+A hero consists of:
+- **Name**
+- **Race**: *Human, Orc, Elf, Dwarf*
+- **Hero Class**: *Paladin, Warrior, Rogue, Mage*
+- **Weapon**: *Sword, Mace, Dagger, Staff*
 
-```shell script
-./mvnw quarkus:dev
-```
+The project is designed so that another group (or a frontend team) can continue building on top of it.
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+---
 
-## Packaging and running the application
+## Assignment Description
+The assignment was to build our own API that another group can use and build a frontend with.  
+The API should provide clear endpoints, validations, and support CRUD operations.
 
-The application can be packaged using:
+---
 
-```shell script
-./mvnw package
-```
+## Key features
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+- Full **CRUD** for users to (*Create, Read, Update, Delete*) heroes.
+- Use enums for (Race, HeroClass, Weapon)
+- Provide clear request/response formats using DTOs
+- Provide documentation and example requests via [Swagger](http://localhost:8080/q/dev-ui/quarkus-smallrye-openapi/swagger-ui) and [DevUI](http://localhost:8080/q/dev-ui/)
+---
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+## Technologies
+- **Java 21**
+- **Quarkus 3**
+- **Jakarta EE** 
+- **Swagger UI**
+- **Postman**
+- **Docker** 
+---
 
-If you want to build an _über-jar_, execute the following command:
+## Data Model Overview
 
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
+### Enums
+The API uses enums to get better structure and readability:
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+#### Race
+- *HUMAN*
+- *ORC*
+- *ELF*
+- *DWARF*
 
-## Creating a native executable
+#### HeroClass
+- *PALADIN*
+- *WARRIOR*
+- *ROGUE*
+- *MAGE*
 
-You can create a native executable using:
+#### Weapon
+- *SWORD*
+- *MACE*
+- *DAGGER*
+- *STAFF*
 
-```shell script
-./mvnw package -Dnative
-```
+Each enum contains:
+- A **display name**  - for frontend usage
+- A **flavour/description string** -  for UI presentation
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+---
 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
+### Hero Entity Contents
 
-You can then execute your native executable with: `./target/code-with-quarkus-1.0.0-SNAPSHOT-runner`
+Fields:
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+- `id` 
+- `name`
+- `race`
+- `heroClass`
+- `weapon`
 
-## Related Guides
+Race traits:
 
-- Hibernate ORM ([guide](https://quarkus.io/guides/hibernate-orm)): Define your persistent model with Hibernate ORM and Jakarta Persistence
-- PrimeFaces ([guide](https://quarkiverse.github.io/quarkiverse-docs/quarkus-primefaces/dev/)): PrimeFaces - lets you utilize PrimeFaces and PF Extensions to make JavaServer Faces (JSF) development
-        so much easier!
-- Narayana JTA - Transaction manager ([guide](https://quarkus.io/guides/transaction)): JTA transaction support
-- Hibernate Validator ([guide](https://quarkus.io/guides/validation)): Validate object properties (field, getter) and method parameters for your beans (REST, CDI, Jakarta Persistence)
-- SmallRye OpenAPI ([guide](https://quarkus.io/guides/openapi-swaggerui)): Document your REST APIs with OpenAPI - comes with Swagger UI
-- RESTEasy Classic ([guide](https://quarkus.io/guides/resteasy)): REST endpoint framework implementing Jakarta REST and more
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
+- `focusedFire`	- 	**Elf**
+- `steadyFrame` 	-	**Dwarf**
+- `strongArms` 	-	**Orc**
+- `jackOfAllTrades` -	**Human**
 
-## Provided Code
+These traits are automatically set based on selected race.
 
-### Hibernate ORM
+---
 
-Create your first JPA entity
+### DTOs
+This project uses DTOs to control what is sent/received from the client.
 
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
+#### HeroDto 
+Contains only what the client needs to send:
+- `race` 
+- `name` 
+- `heroClass` 
+- `weapon`
+ 
+ All the above are sent as strings.
+
+#### HeroResponseDto (outgoing response)
+Contains what the API returns to the client:
+- `id`
+- `name`
+- `race` 
+- `heroClass` 
+- `weapon` 
+- Race traits (`focusedFire`, `steadyFrame`, `strongArms`, `jackOfAllTrades`)
+
+---
+
+## API Base URL
+Default dev URL:
+- `http://localhost:8080`
+
+Base API path:
+- `http://localhost:8080/api`
+
+---
+
+## Endpoints
+
+
+**POST** `/hero/new-hero`  
+Creates and stores a new hero.
+
+**GET** `/hero/get-all-heroes`  
+Returns all heroes.
+
+**GET** `/hero/get-user-heroes`  
+Returns heroes belonging to the specific user.
+
+**GET** `/hero/get-hero-by-id/{id}`  
+Fetches a hero by its id.
+
+**GET** `/hero/get-hero-by-name/{heroName}`  
+Fetches a hero by name.
+
+**GET** `/hero/get-hero-by-class/{heroClass}`  
+Returns heroes matching a specific class.
+*(Paladin, Warrior, Rogue, Mage)*
+
+**GET** `/hero/get-heroes-by-race/{race}`  
+Returns heroes of a specific race.
+*(Human, Dwarf, Orc, Elf)* 
+
+**GET** `/hero/get-hero-by-weapon/{weapon}`  
+Returns heroes using a specific weapon.
+*(Sword, Dagger, Mace , Staff)*
+
+**PATCH** `/hero/update-hero`  
+Updates an existing hero.
+
+**DELETE** `/hero/{id}`  
+Deletes a hero by id.
+___
 
 
 
-### RESTEasy JAX-RS
+## Common Error Responses
 
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+- **400** – Invalid request data  
+- **404** – Resource not found  
+- **403** – Access denied  
+- **200 / 201** – Successful operation
