@@ -1,7 +1,26 @@
 package org.acme.SwaggerMessages;
 
+
+/**
+ * 
+ * Den här klassen innehåller felkoder som skickas till Swagger, samt exempel på hur endpoints kallas med js.
+ * I swagger syns felkoderna under JS exemplen.
+ * 
+ * Beroende på hur ni vill använda endpoints kan vissa JS exempel behöva modifieras, men här finns en grund att utgå ifrån.
+ * 
+ * 
+ * I samtliga exempel finns en hårdkodad API nyckel. När ni själva ska hantera nycklar rekommenderar vi att ni sparar dem i localstorage
+ * vid inloggning/retrieval, och använder localstorages värde i headern.
+ * 
+*/
+
+
+
 public class SwaggerDocs {
     
+
+
+    // Hämta alla heroes 
     public static final String HERO_FETCH_ALL_HEROES_JAVASCRIPT_STRING =
     """
         Returns all heroes.
@@ -25,6 +44,7 @@ public class SwaggerDocs {
         Error Code: [ 404 ]         =         No heroes found
     """;
     
+    // Ta bort specifik hero, baserat på id
     public static final String HERO_DELETE_HERO_JAVASCRIPT_STRING = 
     """
         Deletes a hero by id.
@@ -58,6 +78,7 @@ public class SwaggerDocs {
         Error Code: [ 404 ]   =         Hero not found
     """;
 
+    // Hämta hero baserat på namn
     public static final String HERO_FETCH_HERO_BY_NAME_JAVASCRIPT_STRING =
     """
         Returns hero by name.
@@ -94,6 +115,7 @@ public class SwaggerDocs {
     """;
 
 
+    // Skapa ny hero
     public static final String CREATE_NEW_HERO_STRING =
         """
         Creates a hero.
@@ -134,6 +156,7 @@ public class SwaggerDocs {
         Error Code: [ 403 ]         =         Invalid API key
     """;
 
+    // Hämta heroes som tillhör specifik användare (definerat av api-nyckel)
     public static final String HERO_GET_USER_HEROES_STRING =
     """
             Returnspero  all heroes owned by the user.

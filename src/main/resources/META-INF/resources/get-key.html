@@ -20,6 +20,34 @@
 
 
 
+    <script>
+        const getKeyBtn = document.getElementById("getKeyBtn");
+
+        // Hämtning av api nyckel
+        if (getKeyBtn) {
+            getKeyBtn.addEventListener("click", async () => {
+                const username = document.getElementById("usernameForKey").value;
+                const password = document.getElementById("passwordForKey").value;
+
+                const response = await fetch("http://localhost:8080/api/users/get-key", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.ok) {
+                    const key = await response.text();
+                    document.getElementById("apiKeyResult").textContent = 'Your API Key: ' + key;
+                } else {
+                    const error = await response.text();
+                    document.getElementById("apiKeyResult").textContent = error;
+                }
+
+            });
+        }
+
+    </script>
+
 </body>
 
 </html>
