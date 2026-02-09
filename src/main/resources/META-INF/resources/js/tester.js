@@ -5,26 +5,31 @@ const inputFld = document.getElementById("testInput")
 btn.addEventListener("click", () => {
     /*   getHeroByName(inputFld.value) */
     /*   getAllHeroes()  */
-         getUserHeroes()
+        /*  getUserHeroes() */
     /*   createHero(inputFld.value) */
+    /* getHeroesByRace(inputFld.value) */
+    /* updateHero(inputFld.value) */
+   /*  getHeroById(inputFld.value) */
+/*    getHeroesByClass(inputFld.value) */
 })
 
 
 
 
-/* async function getUserHeroes() {
-    const response = await fetch("http://localhost:8080/api/hero/get-all-heroes", {
-        method: "GET",
-        headers: {
-            "X-API-KEY": "123456"
-        }
+/*     async function getUserHeroes(){
+        const response = await fetch("http://localhost:8080/api/hero/get-user-heroes", {
+            method: "GET",
+            headers: {
+                "X-API-KEY": "123456"
+            }
+        });
 
-    });
-    const result = await response.json();
-    console.log(result);
-}
-  */
+        const result = await response.json();
+        console.log(result);
+    }
 
+  
+ */
 
 /*   async function getAllHeroes() {
     const response = await fetch("http://localhost:8080/api/hero/get-all-heroes", {
@@ -93,5 +98,90 @@ async function createHero(name) {
     } else {
             const result = await response.json();
             console.log(result);
+    }
+} */
+
+
+/*     async function getHeroesByRace(race){
+        const response = await fetch(`http://localhost:8080/api/hero/get-heroes-by-race/${race}`, {
+            method: "GET",
+            headers: {
+                "X-API-KEY": "123456"
+            }
+        });
+
+        if (!response.ok) {
+            const error = await response.text();
+            console.log(error);
+        } else {
+            const result = await response.json();
+            console.log(result);
+        }
+    }
+
+ */
+
+
+/* async function updateHero(weapon){
+    const response = await fetch("http://localhost:8080/api/hero/update-hero", {
+        method: "PATCH",
+        headers: { 
+            "Content-Type": "application/json",
+            "X-API-KEY": "123456" 
+        },  
+        body: JSON.stringify({ 
+            "name": "Gronk",
+            "race": "Elf",
+            "weapon": weapon,
+            "heroClass": "WARRIOR"
+        })
+    });
+
+    if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+    } else {
+        const error = await response.text()
+        console.log(error)
+    }
+
+}
+
+ */
+
+
+/* async function getHeroById(id){
+    const response = await fetch(`http://localhost:8080/api/hero/get-hero-by-id/${id}`, {
+        method: "GET",
+        headers: {
+            "X-API-KEY": "123456"
+        }
+    });
+
+    if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+    } else {
+        const error = await response.text();
+        console.log(error)
+    }
+
+} */
+
+/* 
+async function getHeroesByClass(heroClass){
+    const response = await fetch(`http://localhost:8080/api/hero/get-heroes-by-class/${heroClass}`, {
+        method: "GET",
+        headers: {
+            "X-API-KEY": "123456"
+        }
+    });
+
+    if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+    } else {
+        const error = await response.text()
+        console.log(error)
     }
 } */

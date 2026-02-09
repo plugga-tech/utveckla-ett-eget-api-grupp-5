@@ -259,7 +259,7 @@ public class HeroResource {
 
     @GET
     @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_GET_BY_CLASS_STRING)
-    @Path("/get-hero-by-class/{heroClass}")
+    @Path("/get-heroes-by-class/{heroClass}")
     public Response getHeroesByClass(@PathParam("heroClass") String heroClass) {
 
         try {

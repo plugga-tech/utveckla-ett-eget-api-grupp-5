@@ -43,5 +43,6 @@ nb-configuration.xml
 /.quarkus/cli/plugins/
 # TLS Certificates
 .certs/
-src/main/resources/META-INF/resources/js/asd.js
-src/main/resources/META-INF/resources/getbyname.html
+src/main/resources/META-INF/resources/js/tester.js
+src/main/resources/META-INF/resources/tester.html
+

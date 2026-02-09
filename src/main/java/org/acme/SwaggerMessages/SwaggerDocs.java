@@ -8,16 +8,14 @@ public class SwaggerDocs {
 
         Example JS:
 
-        async function getAllHeroes(){
-            const response = await fetch("http://localhost:8080/api/hero/get-all-heroes", {
-                method: "GET",
-                headers: {
-                    "X-API-KEY": "123456"
-                }
-            });
+            async function getAllHeroes(){
+                    const response = await fetch("http://localhost:8080/api/hero/get-all-heroes", {
+                        method: "GET",
+                    });
 
-            const result = await response.json();
-            console.log(result);
+                    const result = await response.json();
+                    console.log(result);
+                }
         }
         ***
 
@@ -26,7 +24,7 @@ public class SwaggerDocs {
         Error Code: [ 403 ]         =         Invalid API key
         Error Code: [ 404 ]         =         No heroes found
     """;
-        
+    
     public static final String HERO_DELETE_HERO_JAVASCRIPT_STRING = 
     """
         Deletes a hero by id.
@@ -34,17 +32,22 @@ public class SwaggerDocs {
         Example JS:
 
         async function deleteHero(id) {
-            const response = await fetch(`http://localhost:8080/api/hero/${id}`, {
-                method: "DELETE",
-                headers: {
-                    "X-API-KEY": "123456"
-                }
-            });
+                const response = await fetch(`http://localhost:8080/api/hero/delete/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "X-API-KEY": "123456"
+                    }
+                });
 
-            if (!response.ok) {
-                console.log("Error deleting hero");
+                const result = await response.text();
+
+                if (!response.ok) {
+                    console.log(result);
+                } else {
+
+                console.log(result)
             }
-        }
+        }    
 
         ***
 
@@ -61,7 +64,7 @@ public class SwaggerDocs {
 
         Example JS:
 
-        async function getHeroByName(name){
+        async function getHeroByName(name) {
             const response = await fetch(`http://localhost:8080/api/hero/get-hero-by-name/${name}`, {
                 method: "GET",
                 headers: {
@@ -69,9 +72,17 @@ public class SwaggerDocs {
                 }
             });
 
-            const result = await response.json();
-            console.log(result);
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.log(errorText)
+                return;
+            } else {
+                const result = await response.json();
+                console.log(result);
+            }
+
         }
+            
 
         ***
 
@@ -85,26 +96,34 @@ public class SwaggerDocs {
 
     public static final String CREATE_NEW_HERO_STRING =
         """
-            Creates a hero.
-    
-            Example JS:
-    
-            async function createHero(name){
-            const response = await fetch("http://localhost:8080/api/hero/new-hero", {
-            method: "POST",
-            headers: { 
-                "Content-Type": "application/json",
-                "X-API-KEY": "123456" },  
-            body: JSON.stringify({ 
-                "name": "asdasdasd",
-                "race": "Orc",
-                "weapon": "SWORD",
-                "heroClass": "WARRIOR"
-             })
-            });
-            const result = await response.json();
-            console.log(result);
-        }
+        Creates a hero.
+
+        Example JS:
+
+            async function createHero(name) {
+                const response = await fetch("http://localhost:8080/api/hero/new-hero", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-API-KEY": "123456"
+                    },
+                    body: JSON.stringify({
+                        "name": name,
+                        "race": "Orc",
+                        "weapon": "SWORD",
+                        "heroClass": "WARRIOR"
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.text();
+                    console.log(error)
+                } else {
+                    const result = await response.json();
+                    console.log(result);
+                }
+
+            }
      ***
 
         
@@ -141,6 +160,8 @@ public class SwaggerDocs {
             Error Code: [ 404 ]       =         No heroes found for this user
     """;
 
+
+
     public static final String HERO_GET_BY_RACE_STRING = 
     """
         Returns all heroes by race.
@@ -155,8 +176,13 @@ public class SwaggerDocs {
                 }
             });
 
-            const result = await response.json();
-            console.log(result);
+            if (!response.ok) {
+                const error = await response.text();
+                console.log(error);
+            } else {
+                const result = await response.json();
+                console.log(result);
+            }
         }
 
         ***
@@ -174,7 +200,8 @@ public class SwaggerDocs {
 
         Example JS:
 
-        async function updateHero(){
+
+        async function updateHero(weapon){
             const response = await fetch("http://localhost:8080/api/hero/update-hero", {
                 method: "PATCH",
                 headers: { 
@@ -182,15 +209,24 @@ public class SwaggerDocs {
                     "X-API-KEY": "123456" 
                 },  
                 body: JSON.stringify({ 
-                    "name": "Legolas",
+                    "name": "Gronk",
                     "race": "Elf",
-                    "weapon": "SWORD",
+                    "weapon": weapon,
                     "heroClass": "WARRIOR"
                 })
             });
-            const result = await response.json();
-            console.log(result);
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log(result);
+            } else {
+                const error = await response.text()
+                console.log(error)
+            }
+
         }
+
+
 
         ***
 
@@ -215,9 +251,14 @@ public class SwaggerDocs {
                     "X-API-KEY": "123456"
                 }
             });
-
-            const result = await response.json();
-            console.log(result);
+            
+            if (response.ok) {
+                const result = await response.json();
+                console.log(result);
+            } else {
+                const error = await response.text()
+                console.log(error)
+            }
         }
 
         ***
@@ -243,8 +284,13 @@ public class SwaggerDocs {
                 }
             });
 
+            if (response.ok) {
             const result = await response.json();
             console.log(result);
+            } else {
+            const error = await response.text();
+            console.log(error)
+            }
         }
 
         ***
