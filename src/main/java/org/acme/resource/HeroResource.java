@@ -46,7 +46,7 @@ public class HeroResource {
     @POST
     @Transactional
     @Operation(summary = "Creates a new hero", description = "Creates a new hero in the system, check Example Value for structure.")
-    @APIResponse(responseCode = "200", description = SwaggerDocs.CREATE_NEW_HERO_STRING)
+    @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.CREATE_NEW_HERO_STRING)
     @Path("/new-hero")
     public Response newHero(HeroDto heroDto) {
 
@@ -85,7 +85,7 @@ public class HeroResource {
     }
 
     @GET
-    @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_FETCH_ALL_HEROES_JAVASCRIPT_STRING)
+    @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_GET_USER_HEROES_STRING)
     @Path("/get-user-heroes")
     public Response getUserHeroes() {
         try {
@@ -96,6 +96,7 @@ public class HeroResource {
     }
 
     @GET
+    @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_FETCH_ALL_HEROES_JAVASCRIPT_STRING)
     @Path("/get-all-heroes")
     public Response getAllHeroes() {
 
@@ -130,6 +131,7 @@ public class HeroResource {
     }
 
     @GET
+    @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_GET_BY_RACE_STRING)
     @Path("/get-heroes-by-race/{race}")
     public Response getHeroesByRace(@PathParam("race") String race) {
         try {
@@ -146,6 +148,7 @@ public class HeroResource {
 
     // Uppdaterar en hero baserat på id
     @PATCH
+    @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_UPDATE_HERO_STRING)
     @Path("/update-hero")
     @Transactional
     public Response updateHero(HeroDto heroDto) {
@@ -186,6 +189,7 @@ public class HeroResource {
     }
 
     @GET
+    @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_GET_BY_WEAPON_STRING)
     @Path("/get-hero-by-weapon/{weapon}")
     public Response getHeroesByWeapon(@PathParam("weapon") String weapon) {
 
@@ -199,6 +203,7 @@ public class HeroResource {
     }
 
     @GET
+    @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_GET_BY_ID_STRING)
     @Path("/get-hero-by-id/{id}")
     public Response getHeroById(@PathParam("id") int id) {
 
@@ -250,6 +255,7 @@ public class HeroResource {
     // för att visa hjältar av den klassen istället.
 
     @GET
+    @APIResponse(responseCode = "JAVASCRIPT EXAMPLE", description = SwaggerDocs.HERO_GET_BY_CLASS_STRING)
     @Path("/get-hero-by-class/{heroClass}")
     public Response getHeroesByClass(@PathParam("heroClass") String heroClass) {
 
