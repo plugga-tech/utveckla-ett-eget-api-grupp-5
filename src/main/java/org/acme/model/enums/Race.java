@@ -15,27 +15,34 @@ import java.util.List;
 public enum Race {
 
     HUMAN   ("Human"    , "Human are potent in just about anything, but they don't excel in any particular trait.",
-             "https://res.cloudinary.com/dz2lmzpd7/image/upload/q_auto,f_auto,w_500/v1770643202/Human_ksxozo.png"),
+             "https://res.cloudinary.com/dz2lmzpd7/image/upload/q_auto,f_auto,w_500/v1770643202/Human_ksxozo.png", "50", "30", "70"),
 
     ORC     ("Orc"      , "Orcs are massive, intimidating, and strong.",
-            "https://res.cloudinary.com/dz2lmzpd7/image/upload/q_auto,f_auto,w_500/v1770643219/Orc_mvazmm.png"),
+            "https://res.cloudinary.com/dz2lmzpd7/image/upload/q_auto,f_auto,w_500/v1770643219/Orc_mvazmm.png", "100", "60", "10"),
 
     ELF     ("Elf"      , "Elves are naturally agile and quick on their feet.",
-            "https://res.cloudinary.com/dz2lmzpd7/image/upload/q_auto,f_auto,w_500/v1770643214/Elf_mbq3xl.png"),
+            "https://res.cloudinary.com/dz2lmzpd7/image/upload/q_auto,f_auto,w_500/v1770643214/Elf_mbq3xl.png", "30", "50", "80"),
 
     DWARF   ("Dwarf"    , "Dwarves are short, but sturdy. They know how to take a punch.",
-            "https://res.cloudinary.com/dz2lmzpd7/image/upload/q_auto,f_auto,w_500/v1770643102/Dwarf_oypwgf.png");
+            "https://res.cloudinary.com/dz2lmzpd7/image/upload/q_auto,f_auto,w_500/v1770643102/Dwarf_oypwgf.png", "80", "20", "50");
 
     // Skapar fält för rasens namn och beskrivning
     private final String race;
     private final String flavour;
     private final String imageUrl;
+    private final String strength;
+    private final String stamina;
+    private final String intelligence;
+
     
     // Konstruktor för enum
-    Race(String race, String flavour, String imageUrl) {
+    Race(String race, String flavour, String imageUrl, String strength, String stamina, String intelligence) {
         this.race = race;
         this.flavour = flavour;
         this.imageUrl = imageUrl;
+        this.strength = strength;
+        this.stamina = stamina;
+        this.intelligence = intelligence;
     }
 
     // Getter för rasens namn och beskrivning
@@ -44,8 +51,22 @@ public enum Race {
     // Vill man printa namnet på rasen blir det hero.getRace().getRace() 
     // (lite konstigt namnval kanske, men enkelt att komma ihåg)
     // TODO: byt namn?
+
+    
     public String getRace() {
         return race;
+    }
+
+    public String getStrength() {
+        return strength;
+    }
+
+    public String getStamina() {
+        return stamina;
+    }
+
+    public String getIntelligence() {
+        return intelligence;
     }
 
     public String getFlavour(){

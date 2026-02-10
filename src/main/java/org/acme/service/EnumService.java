@@ -37,6 +37,9 @@ public List<Map<String, String>> getAllRaces() {
         raceMap.put("displayName", r.getRace());
         raceMap.put("flavour", r.getFlavour());
         raceMap.put("imageUrl", r.getImageUrl());
+        raceMap.put("strength", r.getStrength());
+        raceMap.put("stamina", r.getStamina());
+        raceMap.put("intelligence", r.getIntelligence());
         raceList.add(raceMap);
     }
 
