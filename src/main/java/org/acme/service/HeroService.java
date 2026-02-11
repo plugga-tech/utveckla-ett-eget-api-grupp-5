@@ -337,6 +337,36 @@ public class HeroService {
                 .setJackOfAllTrades(hero.getJackOfAllTrades())
                 .setRaceImageUrl   (hero.getRace().getImageUrl());
     }
+
+    // Hämtar hero entity baserat på namn
+    public Hero getHeroEntityByName(String name) throws NoResultException, AccessDeniedException {
+
+        try {
+            Hero hero = em.createQuery(
+                    "SELECT h FROM Hero h WHERE LOWER(h.name) = LOWER(:name)",
+                    Hero.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+
+            if (!hero.getOwnerApiKey().equals(apiKeyHolder.getApiKey())) {
+              throw new AccessDeniedException("This hero belongs to another user.");
+            }
+
+            return hero;
+
+        } catch (NoResultException e) {
+            throw new NoResultException("No hero by that name could be found.");
+        }
+    }
+
+        // Raderar en hero baserat på namn
+    public boolean deleteHerobyName(String name) throws AccessDeniedException, NotFoundException {
+
+        Hero hero = getHeroEntityByName(name);
+
+        em.remove(hero);
+        return true;
+    }
 }
 
         

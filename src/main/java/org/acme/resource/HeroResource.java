@@ -304,4 +304,25 @@ public class HeroResource {
 
     }
 
+       // Raderar en hero baserat på namn
+    @DELETE
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/delete/hero/{name}")
+    @Transactional
+    public Response deleteHerobyName(@PathParam("name") String name) {
+
+        try {
+            heroService.deleteHerobyName(name);
+            
+            return res.respond("Hero has been removed.");
+
+        } catch (AccessDeniedException e) {
+            return res.respond(e);
+
+        } catch (NoResultException e) {
+            return res.respond(e);
+
+        }
+    }
+
 }
