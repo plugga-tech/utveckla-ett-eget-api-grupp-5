@@ -1,0 +1,646 @@
+{
+  "info": {
+    "_postman_id": "dab5ede6-3cf3-4a57-8c40-455df888b683",
+    "name": "Eget Api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51629623",
+    "_collection_link": "https://go.postman.co/collection/51629623-dab5ede6-3cf3-4a57-8c40-455df888b683?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "All Users Heroes",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "123456",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "X-API-KEY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/hero/get-user-heroes",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "hero",
+            "get-user-heroes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Heroes",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/hero/get-all-heroes",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "hero",
+            "get-all-heroes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Races",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "123456",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "X-API-KEY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/enum/races",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "enum",
+            "races"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Weapons",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "123456",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "X-API-KEY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/enum/weapons",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "enum",
+            "weapons"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Classes",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "123456",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "X-API-KEY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/enum/classes",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "enum",
+            "classes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get hero by class",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "123456",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "X-API-KEY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/hero/get-heroes-by-class/paladin",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "hero",
+            "get-heroes-by-class",
+            "paladin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Hero By Id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/hero/get-hero-by-id/4",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "hero",
+            "get-hero-by-id",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Hero By Weapon",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/hero/get-hero-by-weapon/dagger",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "hero",
+            "get-hero-by-weapon",
+            "dagger"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get hero by  name",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "123456",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "X-API-KEY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/hero/get-hero-by-name/gronk",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "hero",
+            "get-hero-by-name",
+            "gronk"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Heroes By Race",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/hero/get-heroes-by-race/dwarf",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "hero",
+            "get-heroes-by-race",
+            "dwarf"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Hero",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "123456",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "X-API-KEY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"squik\",\r\n  \"heroClass\": \"Rogue\",\r\n  \"race\": \"Dwarf\",\r\n  \"weapon\": \"Dagger\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/hero/new-hero",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "hero",
+            "new-hero"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "Sam",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "heroClass",
+              "value": "Ranger",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "Race",
+              "value": "Orc",
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find user",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "123456",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "X-API-KEY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "asdf",
+          "options": {
+            "raw": {
+              "language": "text"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/users/find-user",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "users",
+            "find-user"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New User",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"Sammy\",\r\n    \"password\": \"Gardener\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/users/new-user",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "users",
+            "new-user"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "Sam",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "heroClass",
+              "value": "Ranger",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "Race",
+              "value": "Orc",
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fetch key",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"Sammy\",\r\n    \"password\": \"Gardener\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/users/get-key",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "users",
+            "get-key"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "Sam",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "heroClass",
+              "value": "Ranger",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "Race",
+              "value": "Orc",
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Patch hero",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "123456",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "X-API-KEY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Jayce\",\r\n    \"weapon\": \"MACE\",\r\n    \"race\": \"ORC\",\r\n    \"heroClass\": \"paladin\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/hero/update-hero",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "hero",
+            "update-hero"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Hero",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "123456",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "X-API-KEY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/hero/delete/4",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "hero",
+            "delete",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "value",
+        "value": "123456",
+        "type": "string"
+      },
+      {
+        "key": "key",
+        "value": "X-API-KEY",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "API_KEY",
+      "value": ""
+    }
+  ]
+}

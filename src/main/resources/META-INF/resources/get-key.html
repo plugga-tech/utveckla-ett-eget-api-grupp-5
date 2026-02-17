@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/js/api.js" type="module" defer></script>
+</head>
+
+<body>
+
+    <div style="display: flex; flex-direction: row;">
+        <h2>Get Key</h2> <a href="create.html">Register</a>
+    </div>
+    <input id="usernameForKey" type="text" placeholder="username">
+    <input id="passwordForKey" type="password" placeholder="password">
+    <button id="getKeyBtn">Get Key</button>
+    <div id="apiKeyResult"></div>
+
+
+
+    <script>
+        const getKeyBtn = document.getElementById("getKeyBtn");
+
+        // Hämtning av api nyckel
+        if (getKeyBtn) {
+            getKeyBtn.addEventListener("click", async () => {
+                const username = document.getElementById("usernameForKey").value;
+                const password = document.getElementById("passwordForKey").value;
+
+                const response = await fetch("http://localhost:8080/api/users/get-key", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.ok) {
+                    const key = await response.text();
+                    document.getElementById("apiKeyResult").textContent = 'Your API Key: ' + key;
+                    localStorage.setItem("apiKey", key);
+                } else {
+                    const error = await response.text();
+                    document.getElementById("apiKeyResult").textContent = error;
+                }
+
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>

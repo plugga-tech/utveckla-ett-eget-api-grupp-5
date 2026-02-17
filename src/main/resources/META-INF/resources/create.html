@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/js/api.js" type="module" defer></script>
+</head>
+
+<body>
+
+    <div style="display: flex; flex-direction: row;">
+        <h2>Register</h2> <a href="get-key.html">Get Key</a>
+    </div>
+    <input id="regUser" type="text" placeholder="username">
+    <input id="regPw" type="password" placeholder="password">
+    <button id="regBtn">Register</button>
+    <div id="regResult"></div>
+
+
+
+
+    <script>
+        const regBtn = document.getElementById("regBtn");
+
+        // Den här metoden hanterar registrering av ny användare och returnerar användarens API nyckel
+        if (regBtn) {
+            regBtn.addEventListener("click", async () => {
+                const username = document.getElementById("regUser").value;
+                const password = document.getElementById("regPw").value;
+
+                const response = await fetch("http://localhost:8080/api/users/new-user", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const result = await response.text();
+                document.getElementById("regResult").textContent = result;
+            });
+        }
+
+    </script>
+
+
+</body>
+
+</html>
